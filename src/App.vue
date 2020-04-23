@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div id="bg"></div>
     <GameHeader text="Welcome to Your Vue.js App" />
   </div>
 </template>
@@ -25,6 +26,13 @@ export default {
   padding: 0px;
   overflow: hidden;
   overflow-y: hidden;
-  background-image: url("assets/images/bgninjafin.png");
+  background-color: white;
+  background-image: url("assets/images/bgninjafin128.svg");
+}
+#bg {
+  position: relative;
+  height: 99%;
+  width: 99%;
+  background-image: url("/assets/images/bgninjafin.svg");
 }
 </style>
