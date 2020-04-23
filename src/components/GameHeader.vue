@@ -21,9 +21,9 @@ $border: 12px;
   src: url("../assets/fonts/Julee-Regular.ttf");
 }
 .mainHeaderText {
-  position: absolute;
-  top: 0px;
-  padding: 30px;
+  position: relative;
+
+  padding: 10px;
   font-family: "Julee";
   width: auto;
   font-weight: bold;
