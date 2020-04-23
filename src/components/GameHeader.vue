@@ -23,10 +23,11 @@ $border: 12px;
 .mainHeaderText {
   position: absolute;
   top: 0px;
+  padding: 30px;
   font-family: "Julee";
   width: auto;
   font-weight: bold;
-  font-size: 80px;
+  font-size: 100px;
   color: $color2;
   text-shadow: 1px 1px rgb(151, 88, 82), 2px 2px rgba(126, 52, 126, 0.836),
     3px 3px rgba(122, 94, 245, 0.836), 4px 4px rgba(110, 18, 95, 0.836),
