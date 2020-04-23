@@ -1,11 +1,16 @@
 <template>
   <div id="meditaionzone">
-    <ul class="circle-container">
-      <li v-for="(image_src,index) in answers" :key="index" v-on:click="removeFromCircle($event)">
-        <img :src="image_src" />
+    <ul id="listOfAnswers" class="circle-container">
+      <li
+        v-for="(image_src,index) in answers"
+        :key="index"
+        :data-ansNum="index"
+        v-on:click="removeFromCircle($event)"
+      >
+        <img :src="image_src" :key="index" :data-ansnum="index" />
       </li>
     </ul>
-    <!-- <img class="mediNinja" src="../assets/images/medi-ninja.svg" alt="medi-ninja" /> -->
+    <img class="mediNinja" src="../assets/images/medi-ninja.svg" alt="medi-ninja" />
     <button class="addBtn" v-on:click="addToCircle">Add 1</button>
   </div>
 </template>
@@ -15,16 +20,7 @@ export default {
   name: "MeditaionZone",
   data() {
     return {
-      originAnswers: [
-        "ans/avt (1).svg",
-        "ans/avt (2).svg",
-        "ans/avt (3).svg",
-        "ans/avt (4).svg",
-        "ans/avt (5).svg",
-        "ans/avt (6).svg",
-        "ans/avt (7).svg",
-        "ans/avt (8).svg"
-      ],
+      storedAnswers: ["ans/avt (9).svg", "ans/avt (10).svg"],
       answers: [
         "ans/avt (1).svg",
         "ans/avt (2).svg",
@@ -37,12 +33,43 @@ export default {
       ]
     };
   },
+  mounted() {
+    setTimeout(() => this.updateLayout(), 0);
+  },
+
   methods: {
     addToCircle() {
-      this.answers.push("ans/avt (9).svg");
+      if (this.storedAnswers.length) {
+        const returned = this.storedAnswers.pop();
+        this.answers.push(returned);
+        setTimeout(() => this.updateLayout(), 2);
+      } else {
+        alert("no more");
+      }
     },
     removeFromCircle(event) {
-      event.target.remove();
+      const key = event.target.dataset.ansnum;
+      const removed = this.answers.splice(key, 1);
+      this.storedAnswers.push(removed);
+
+      setTimeout(() => this.updateLayout(), 2);
+    },
+    updateLayout() {
+      const listItems = document.querySelector("#listOfAnswers").childNodes;
+      for (var i = 0; i < listItems.length; i++) {
+        var offsetAngle = 360 / listItems.length;
+        var rotateAngle = offsetAngle * i;
+        listItems[i].style.transform =
+          "rotate(" +
+          rotateAngle +
+          "deg) translate(0, -120px) rotate(-" +
+          rotateAngle +
+          "deg)";
+        // const s = i;
+        // setTimeout(() => {
+        //   listItems[s].classList.add("turningCircle");
+        // }, 1000);
+      }
     }
   }
 
@@ -55,12 +82,15 @@ export default {
 #meditaionzone {
   position: relative;
   width: 50%;
-  border: solid black;
+
   text-align: center;
   z-index: 20;
 }
 .mediNinja {
+  position: relative;
   height: 200px;
+  right: -200px;
+  top: -100px;
 }
 
 /// Mixin to place items on a circle
@@ -86,19 +116,7 @@ export default {
     margin: -($item-size / 2);
     width: $item-size;
     height: $item-size;
-
-    $angle: (360 / $item-count);
-    $rot: 0;
-
-    @for $i from 1 through $item-count {
-      &:nth-of-type(#{$i}) {
-        transform: rotate($rot * 1deg)
-          translate($circle-size / 2)
-          rotate($rot * -1deg);
-      }
-
-      $rot: $rot + $angle;
-    }
+    transition: all 0.2s;
   }
 }
 
@@ -120,11 +138,22 @@ export default {
   }
   z-index: 20;
 }
+.turningCircle {
+  animation: turnCircle 20s linear infinite;
+}
+@keyframes turnCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .addBtn {
   padding: 10px;
   position: absolute;
-  top: 44px;
-  left: 25%;
+  top: -22px;
+  left: 15%;
   background-color: burlywood;
   border: 0px;
   border-radius: 4px;
