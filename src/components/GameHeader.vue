@@ -1,12 +1,13 @@
 <template>
-  <div class="mainHeaderText">Ninja Quest</div>
+  <div :style="{fontSize: size + 'px'}" class="mainHeaderText">{{text}}</div>
 </template>
 
 <script>
 export default {
   name: "GameHeader",
   props: {
-    text: String
+    text: String,
+    size: Number
   }
 };
 </script>

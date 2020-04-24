@@ -28,17 +28,19 @@ export default {
         e => `ans/avt (${e}).svg`
       ),
       // 2, 3, 4, 5, 6, 7, 8
-      answers: [1, 2, 3, 4, 5, 6, 7].map(e => `ans/avt (${e}).svg`),
+      answers: [1, 2].map(e => `ans/avt (${e}).svg`),
       spinDuration: 12,
-      ispaused: false
+      ispaused: false,
+      sizeOfwheel: 340,
+      numberOfAnswers: 7
     };
   },
   mounted() {
     setTimeout(() => {
+      const list = document.querySelector("#listOfAnswers");
+      list.style.setProperty("--spinduration", `${this.spinDuration}s`);
+      list.style.setProperty("--sizeOfwheel", `${this.sizeOfwheel}px`);
       this.updateLayout();
-      document
-        .querySelector("#listOfAnswers")
-        .style.setProperty("--spinduration", `${this.spinDuration}s`);
     }, 0);
   },
 
@@ -66,17 +68,23 @@ export default {
     },
 
     updateLayout(updateNumber = 10000000) {
-      var radius = 120; // adjust to move out items in and out
+      // adjust to move out items in and out
+
       const container = document.querySelector("#listOfAnswers");
+
       const fields = container.childNodes;
       const width = container.offsetWidth;
       const height = container.offsetHeight;
       const angleOfContainer = getCurrentRotationFixed("listOfAnswers");
+      var radius = Number(width) / 2;
       const animationDelay = `${(angleOfContainer / 360) *
         -this.spinDuration}s`;
+      const itemSize = `${(width * 0.3) / fields.length + fields.length * 5}px`;
+      container.style.setProperty("--sizeOfans", itemSize);
 
       var angle = 0,
         step = (2 * Math.PI) / fields.length;
+
       fields.forEach(a => {
         var x = Math.round(
           width / 2 + radius * Math.cos(angle) - a.offsetWidth / 2
@@ -108,10 +116,14 @@ export default {
 
 <style lang="scss" scoped>
 #listOfAnswers {
+  --sizeOfwheel: 340px;
   --spinduration: 10s;
+  --numberOfAnswers: 6;
+  --sizeOfans: 60px;
+  //  calc(var(--sizeOfwheel) / (var(--numberOfAnswers) / 3.4));
   padding: 0px;
-  width: 230px;
-  height: 230px;
+  width: var(--sizeOfwheel);
+  height: var(--sizeOfwheel);
   margin: 10px auto;
   border: 1px solid #000;
   position: relative;
@@ -119,8 +131,8 @@ export default {
   list-style-type: none;
 }
 .item {
-  width: 50px;
-  height: 50px;
+  width: var(--sizeOfans);
+  height: var(--sizeOfans);
   text-align: center;
   border-radius: 50%;
   position: absolute;

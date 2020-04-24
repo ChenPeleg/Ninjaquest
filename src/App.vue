@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <GameHeader text="Welcome to Your Vue.js App" />
+    <GameHeader text="Ninja Quest" :size="sizeOfHeader" />
     <MeditationZone />
     <paintingBackGround />
   </div>
@@ -16,6 +16,11 @@ export default {
     GameHeader,
     paintingBackGround,
     MeditationZone
+  },
+  data: () => {
+    return {
+      sizeOfHeader: 50
+    };
   }
 };
 </script>
