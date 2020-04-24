@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import getCurrentRotationFixed from "../Utils/getAngle";
 export default {
   name: "MeditaionZone",
   data() {
@@ -44,32 +45,18 @@ export default {
       const key = event.target.dataset.ansnum;
       const removed = this.answers.splice(key, 1);
       this.storedAnswers.push(removed);
-
       setTimeout(() => this.updateLayout(), 2);
     },
+
     updateLayout() {
-      this.updateLayout2();
-      return;
-      // const listItems = document.querySelector("#listOfAnswers").childNodes;
-      // for (var i = 0; i < listItems.length; i++) {
-      //   var offsetAngle = 360 / listItems.length;
-      //   var rotateAngle = offsetAngle * i;
-      //   listItems[i].style.transform =
-      //     "rotate(" +
-      //     rotateAngle +
-      //     "deg) translate(0, -120px) rotate(-" +
-      //     rotateAngle +
-      //     "deg)";
-      // }
-    },
-    updateLayout2() {
       var radius = 120; // adjust to move out items in and out
       const container = document.querySelector("#listOfAnswers");
       const fields = container.childNodes;
-      console.log(container);
+      const angleOfContainer = getCurrentRotationFixed("listOfAnswers");
+      console.log(angleOfContainer);
       const width = container.offsetWidth;
       const height = container.offsetHeight;
-      console.log(height);
+
       var angle = 0,
         step = (2 * Math.PI) / fields.length;
       fields.forEach(a => {
@@ -79,9 +66,11 @@ export default {
         var y = Math.round(
           height / 2 + radius * Math.sin(angle) - a.offsetHeight / 2
         );
-
+        var animationDelay = `${-10 + (angleOfContainer / 360) * 10}s`;
+        // animationDelay = "-0s";
         a.style.left = x + "px";
         a.style.top = y + "px";
+        a.style.animationDelay = animationDelay;
         angle += step;
       });
     }
@@ -93,10 +82,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#listOfAnswers {
+  padding: 0px;
+  width: 230px;
+  height: 230px;
+  margin: 10px auto;
+  border: 1px solid #000;
+  position: relative;
+  border-radius: 50%;
+  animation: spin 10s linear infinite;
+  list-style-type: none;
+  transition: all 0.5s ease-in-out;
+}
+.item {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  position: absolute;
+  animation: spin 10s linear infinite reverse;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
 #meditaionzone {
   position: relative;
   width: 50%;
-
   text-align: center;
   z-index: 20;
 }
@@ -107,55 +121,6 @@ export default {
   top: -100px;
 }
 
-@mixin on-circle($item-count, $circle-size, $item-size) {
-  position: relative;
-  width: $circle-size;
-  height: $circle-size;
-  border-radius: 50%;
-  padding: 0;
-  list-style: none;
-
-  > * {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -($item-size / 2);
-    width: $item-size;
-    height: $item-size;
-    transition: all 0.2s;
-  }
-}
-
-.circle-container {
-  @include on-circle($item-count: 7, $circle-size: 16em, $item-size: 4em);
-  margin: 5em auto 0;
-  border: solid 5px tomato;
-
-  img {
-    display: block;
-    max-width: 100%;
-    border-radius: 50%;
-    border: solid 0px tomato;
-    transition: 0.15s;
-
-    &:hover {
-      transform: scale(1.2);
-    }
-  }
-  z-index: 20;
-}
-.turningAns {
-  animation: turningAnsAnim 20s linear infinite;
-}
-@keyframes turningAnsAnim {
-  0% {
-    transform: rotate(0deg) translate (-120px);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 .addBtn {
   padding: 10px;
   position: absolute;
@@ -170,31 +135,5 @@ export default {
 }
 
 /* new try */
-
-#listOfAnswers {
-  padding: 0px;
-  width: 230px;
-  height: 230px;
-  margin: 10px auto;
-  border: 1px solid #000;
-  position: relative;
-  border-radius: 50%;
-  animation: spin 10s linear infinite;
-  list-style-type: none;
-}
-.item {
-  width: 50px;
-  height: 50px;
-  line-height: 30px;
-  text-align: center;
-  border-radius: 50%;
-  position: absolute;
-  animation: spin 10s linear infinite reverse;
-}
-@keyframes spin {
-  100% {
-    transform: rotate(1turn);
-  }
-}
 </style>
 
