@@ -1,7 +1,8 @@
 <template>
   <div id="meditaionzone">
-    <ul id="listOfAnswers" class="circle-container">
+    <ul id="listOfAnswers" class>
       <li
+        class="item"
         v-for="(image_src,index) in answers"
         :key="index"
         :data-ansNum="index"
@@ -21,16 +22,8 @@ export default {
   data() {
     return {
       storedAnswers: ["ans/avt (9).svg", "ans/avt (10).svg"],
-      answers: [
-        "ans/avt (1).svg",
-        "ans/avt (2).svg",
-        "ans/avt (3).svg",
-        "ans/avt (4).svg",
-        "ans/avt (5).svg",
-        "ans/avt (6).svg",
-        "ans/avt (7).svg",
-        "ans/avt (8).svg"
-      ]
+      // 2, 3, 4, 5, 6, 7, 8
+      answers: [1, 2, 3, 4, 5, 6, 7, 8].map(e => `ans/avt (${e}).svg`)
     };
   },
   mounted() {
@@ -55,21 +48,42 @@ export default {
       setTimeout(() => this.updateLayout(), 2);
     },
     updateLayout() {
-      const listItems = document.querySelector("#listOfAnswers").childNodes;
-      for (var i = 0; i < listItems.length; i++) {
-        var offsetAngle = 360 / listItems.length;
-        var rotateAngle = offsetAngle * i;
-        listItems[i].style.transform =
-          "rotate(" +
-          rotateAngle +
-          "deg) translate(0, -120px) rotate(-" +
-          rotateAngle +
-          "deg)";
-        // const s = i;
-        // setTimeout(() => {
-        //   listItems[s].classList.add("turningCircle");
-        // }, 1000);
-      }
+      this.updateLayout2();
+      return;
+      // const listItems = document.querySelector("#listOfAnswers").childNodes;
+      // for (var i = 0; i < listItems.length; i++) {
+      //   var offsetAngle = 360 / listItems.length;
+      //   var rotateAngle = offsetAngle * i;
+      //   listItems[i].style.transform =
+      //     "rotate(" +
+      //     rotateAngle +
+      //     "deg) translate(0, -120px) rotate(-" +
+      //     rotateAngle +
+      //     "deg)";
+      // }
+    },
+    updateLayout2() {
+      var radius = 120; // adjust to move out items in and out
+      const container = document.querySelector("#listOfAnswers");
+      const fields = container.childNodes;
+      console.log(container);
+      const width = container.offsetWidth;
+      const height = container.offsetHeight;
+      console.log(height);
+      var angle = 0,
+        step = (2 * Math.PI) / fields.length;
+      fields.forEach(a => {
+        var x = Math.round(
+          width / 2 + radius * Math.cos(angle) - a.offsetWidth / 2
+        );
+        var y = Math.round(
+          height / 2 + radius * Math.sin(angle) - a.offsetHeight / 2
+        );
+
+        a.style.left = x + "px";
+        a.style.top = y + "px";
+        angle += step;
+      });
     }
   }
 
@@ -92,13 +106,6 @@ export default {
   right: -200px;
   top: -100px;
 }
-
-/// Mixin to place items on a circle
-/// @author Hugo Giraudel
-/// @author Ana Tudor
-/// @param {Integer} $item-count - Number of items on the circle
-/// @param {Length} $circle-size - Large circle size
-/// @param {Length} $item-size - Single item size
 
 @mixin on-circle($item-count, $circle-size, $item-size) {
   position: relative;
@@ -138,12 +145,12 @@ export default {
   }
   z-index: 20;
 }
-.turningCircle {
-  animation: turnCircle 20s linear infinite;
+.turningAns {
+  animation: turningAnsAnim 20s linear infinite;
 }
-@keyframes turnCircle {
+@keyframes turningAnsAnim {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(0deg) translate (-120px);
   }
   100% {
     transform: rotate(360deg);
@@ -161,4 +168,33 @@ export default {
 .addBtn:hover {
   box-shadow: 2px 2px 4px 2px rgba(15, 15, 15, 0.5);
 }
+
+/* new try */
+
+#listOfAnswers {
+  padding: 0px;
+  width: 230px;
+  height: 230px;
+  margin: 10px auto;
+  border: 1px solid #000;
+  position: relative;
+  border-radius: 50%;
+  animation: spin 10s linear infinite;
+  list-style-type: none;
+}
+.item {
+  width: 50px;
+  height: 50px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  position: absolute;
+  animation: spin 10s linear infinite reverse;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(1turn);
+  }
+}
 </style>
+
