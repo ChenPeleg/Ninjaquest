@@ -1,11 +1,12 @@
 <template>
   <div id="meditaionzone">
-    <ul id="listOfAnswers" class>
+    <ul id="listOfAnswers" class="spin" :class="{pause : ispaused}">
       <li
-        class="item"
+        class="item trasition"
+        :class="{pause : ispaused}"
         v-for="(image_src,index) in answers"
         :key="index"
-        :data-ansNum="index"
+        :data-ansnum="index"
         v-on:click="removeFromCircle($event)"
       >
         <img :src="image_src" :key="index" :data-ansnum="index" />
@@ -13,6 +14,7 @@
     </ul>
     <img class="mediNinja" src="../assets/images/medi-ninja.svg" alt="medi-ninja" />
     <button class="addBtn" v-on:click="addToCircle">Add 1</button>
+    <button class="addBtn" v-on:click="toggleSpin">stop/ play</button>
   </div>
 </template>
 
@@ -22,13 +24,22 @@ export default {
   name: "MeditaionZone",
   data() {
     return {
-      storedAnswers: ["ans/avt (9).svg", "ans/avt (10).svg"],
+      storedAnswers: [9, 10, 11, 12, 13, 2, 3, 4, 5, 6, 7, 8].map(
+        e => `ans/avt (${e}).svg`
+      ),
       // 2, 3, 4, 5, 6, 7, 8
-      answers: [1, 2, 3, 4, 5, 6, 7, 8].map(e => `ans/avt (${e}).svg`)
+      answers: [1, 2, 3, 4, 5, 6, 7].map(e => `ans/avt (${e}).svg`),
+      spinDuration: 12,
+      ispaused: false
     };
   },
   mounted() {
-    setTimeout(() => this.updateLayout(), 0);
+    setTimeout(() => {
+      this.updateLayout();
+      document
+        .querySelector("#listOfAnswers")
+        .style.setProperty("--spinduration", `${this.spinDuration}s`);
+    }, 0);
   },
 
   methods: {
@@ -36,7 +47,10 @@ export default {
       if (this.storedAnswers.length) {
         const returned = this.storedAnswers.pop();
         this.answers.push(returned);
-        setTimeout(() => this.updateLayout(), 2);
+        const arrayPosition = this.answers.length;
+        setTimeout(() => {
+          this.updateLayout(arrayPosition);
+        }, 1);
       } else {
         alert("no more");
       }
@@ -47,15 +61,19 @@ export default {
       this.storedAnswers.push(removed);
       setTimeout(() => this.updateLayout(), 2);
     },
+    toggleSpin() {
+      this.ispaused = !this.ispaused;
+    },
 
-    updateLayout() {
+    updateLayout(updateNumber = 10000000) {
       var radius = 120; // adjust to move out items in and out
       const container = document.querySelector("#listOfAnswers");
       const fields = container.childNodes;
-      const angleOfContainer = getCurrentRotationFixed("listOfAnswers");
-      console.log(angleOfContainer);
       const width = container.offsetWidth;
       const height = container.offsetHeight;
+      const angleOfContainer = getCurrentRotationFixed("listOfAnswers");
+      const animationDelay = `${(angleOfContainer / 360) *
+        -this.spinDuration}s`;
 
       var angle = 0,
         step = (2 * Math.PI) / fields.length;
@@ -66,11 +84,18 @@ export default {
         var y = Math.round(
           height / 2 + radius * Math.sin(angle) - a.offsetHeight / 2
         );
-        var animationDelay = `${-10 + (angleOfContainer / 360) * 10}s`;
-        // animationDelay = "-0s";
         a.style.left = x + "px";
         a.style.top = y + "px";
-        a.style.animationDelay = animationDelay;
+
+        if (updateNumber === [...fields].indexOf(a) + 1) {
+          a.style.animationDelay = animationDelay;
+          a.classList.remove("trasition");
+          a.style.opacity = "0.0";
+          setTimeout(() => {
+            a.classList.add("trasition");
+            a.style.opacity = "1";
+          }, 300);
+        }
         angle += step;
       });
     }
@@ -83,6 +108,7 @@ export default {
 
 <style lang="scss" scoped>
 #listOfAnswers {
+  --spinduration: 10s;
   padding: 0px;
   width: 230px;
   height: 230px;
@@ -90,9 +116,7 @@ export default {
   border: 1px solid #000;
   position: relative;
   border-radius: 50%;
-  animation: spin 10s linear infinite;
   list-style-type: none;
-  transition: all 0.5s ease-in-out;
 }
 .item {
   width: 50px;
@@ -100,12 +124,28 @@ export default {
   text-align: center;
   border-radius: 50%;
   position: absolute;
-  animation: spin 10s linear infinite reverse;
+  animation-name: inherit;
+  animation-duration: inherit;
+  animation-iteration-count: inherit;
+  animation-timing-function: inherit;
+  animation-direction: reverse;
+}
+.spin {
+  animation-name: spin;
+  animation-duration: var(--spinduration);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.pause {
+  animation-play-state: paused;
 }
 @keyframes spin {
   100% {
     transform: rotate(1turn);
   }
+}
+.trasition {
+  transition: all 0.5s ease-in-out;
 }
 
 #meditaionzone {
@@ -117,15 +157,16 @@ export default {
 .mediNinja {
   position: relative;
   height: 200px;
-  right: -200px;
+  right: -350px;
   top: -100px;
 }
 
 .addBtn {
   padding: 10px;
-  position: absolute;
-  top: -22px;
-  left: 15%;
+  position: relative;
+  top: -132px;
+  left: -130px;
+  margin: 10px;
   background-color: burlywood;
   border: 0px;
   border-radius: 4px;

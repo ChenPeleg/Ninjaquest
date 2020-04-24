@@ -48,7 +48,7 @@ const getCurrentRotationFixed = (elid) => {
         "fail...";
 
     if (tr !== "none") {
-        console.log('Matrix: ' + tr);
+
 
         var values = tr.split('(')[1];
         values = values.split(')')[0];
