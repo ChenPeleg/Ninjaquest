@@ -15,6 +15,7 @@
     <img class="mediNinja" src="../assets/images/medi-ninja.svg" alt="medi-ninja" />
     <button class="addBtn" v-on:click="addToCircle">Add 1</button>
     <button class="addBtn" v-on:click="toggleSpin">stop/ play</button>
+    <div class="question">ddd</div>
   </div>
 </template>
 
@@ -68,7 +69,8 @@ export default {
     },
 
     updateLayout(updateNumber = 10000000) {
-      // adjust to move out items in and out
+      const calcItemSize = (widthOfContainer, numberOfItems) =>
+        widthOfContainer / 4.5 + (widthOfContainer * 0.2) / numberOfItems + 5;
 
       const container = document.querySelector("#listOfAnswers");
 
@@ -79,7 +81,7 @@ export default {
       var radius = Number(width) / 2;
       const animationDelay = `${(angleOfContainer / 360) *
         -this.spinDuration}s`;
-      const itemSize = `${(width * 0.3) / fields.length + fields.length * 5}px`;
+      const itemSize = calcItemSize(width, fields.length) + "px";
       container.style.setProperty("--sizeOfans", itemSize);
 
       var angle = 0,
@@ -186,7 +188,13 @@ export default {
 .addBtn:hover {
   box-shadow: 2px 2px 4px 2px rgba(15, 15, 15, 0.5);
 }
-
+.question {
+  position: relative;
+  display: inline-block;
+  width: var(--sizeOfwheel);
+  height: var(--sizeOfwheel);
+  background-color: aquamarine;
+}
 /* new try */
 </style>
 
