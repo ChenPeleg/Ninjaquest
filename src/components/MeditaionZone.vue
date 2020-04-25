@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import getCurrentRotationFixed from "../Utils/getAngle";
+import getCurrentRotationFixed from "../Utils/getAngle.js";
 export default {
   name: "MeditaionZone",
   data() {
@@ -121,7 +121,7 @@ export default {
 #listOfAnswers {
   --sizeOfwheel: 340px;
   --spinduration: 10s;
-  --numberOfAnswers: 6;
+  --numberOfAnswers: 7;
   --sizeOfans: 60px;
   //  calc(var(--sizeOfwheel) / (var(--numberOfAnswers) / 3.4));
   // position: relative;
@@ -169,14 +169,11 @@ export default {
 #meditaionzone {
   position: relative;
   width: 98%;
-  padding-left: 50px;
+  padding-left: 90px;
   text-align: left;
   z-index: 20;
 }
 .mediNinja {
-  // position: relative;
-  background-color: gold;
-
   display: inline;
   height: 200px;
   bottom: -130px;
@@ -197,16 +194,14 @@ export default {
   box-shadow: 2px 2px 4px 2px rgba(15, 15, 15, 0.5);
 }
 .question {
-  // position: relative;
-  // right: -105%;
   background-color: gold;
   vertical-align: top;
 
   top: 20px;
   margin: 0px;
-  display: inline;
-  width: 650px;
-  height: 300px;
+  display: inline-block;
+  height: 400px;
+  width: 500px;
   background-color: aquamarine;
 }
 /* new try */
