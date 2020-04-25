@@ -13,9 +13,10 @@
       </li>
     </ul>
     <img class="mediNinja" src="../assets/images/medi-ninja.svg" alt="medi-ninja" />
+    <div class="question">ddd</div>
+
     <button class="addBtn" v-on:click="addToCircle">Add 1</button>
     <button class="addBtn" v-on:click="toggleSpin">stop/ play</button>
-    <div class="question">ddd</div>
   </div>
 </template>
 
@@ -123,12 +124,15 @@ export default {
   --numberOfAnswers: 6;
   --sizeOfans: 60px;
   //  calc(var(--sizeOfwheel) / (var(--numberOfAnswers) / 3.4));
+  // position: relative;
+  display: inline;
+  left: 70px;
   padding: 0px;
   width: var(--sizeOfwheel);
   height: var(--sizeOfwheel);
   margin: 10px auto;
   border: 1px solid #000;
-  position: relative;
+  display: inline-block;
   border-radius: 50%;
   list-style-type: none;
 }
@@ -164,22 +168,26 @@ export default {
 
 #meditaionzone {
   position: relative;
-  width: 50%;
-  text-align: center;
+  width: 98%;
+  padding-left: 50px;
+  text-align: left;
   z-index: 20;
 }
 .mediNinja {
-  position: relative;
+  // position: relative;
+  background-color: gold;
+
+  display: inline;
   height: 200px;
-  right: -350px;
-  top: -100px;
+  bottom: -130px;
+  margin: 0px;
 }
 
 .addBtn {
   padding: 10px;
   position: relative;
-  top: -132px;
-  left: -130px;
+  top: 100px;
+  right: 530px;
   margin: 10px;
   background-color: burlywood;
   border: 0px;
@@ -189,12 +197,19 @@ export default {
   box-shadow: 2px 2px 4px 2px rgba(15, 15, 15, 0.5);
 }
 .question {
-  position: relative;
-  display: inline-block;
-  width: var(--sizeOfwheel);
-  height: var(--sizeOfwheel);
+  // position: relative;
+  // right: -105%;
+  background-color: gold;
+  vertical-align: top;
+
+  top: 20px;
+  margin: 0px;
+  display: inline;
+  width: 650px;
+  height: 300px;
   background-color: aquamarine;
 }
 /* new try */
 </style>
+
 
