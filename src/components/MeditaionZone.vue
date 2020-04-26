@@ -9,7 +9,7 @@
           <img class="mediNinja" src="../assets/images/medi-ninja.svg" alt="medi-ninja" />
         </td>
         <td>
-          <div class="question"></div>
+          <Question />
         </td>
       </tr>
     </table>
@@ -21,6 +21,7 @@
 
 <script>
 import AnswersCircle from "./AnswersCircle";
+import Question from "./Question";
 
 export default {
   name: "MeditaionZone",
@@ -33,12 +34,10 @@ export default {
       answers: [1, 2].map(e => {
         return { ki: `ans${e}`, image: `ans/avt (${e}).svg` };
       }),
-      spinDuration: 12,
-      ispaused: false,
-      sizeOfwheel: 340
+      ispaused: false
     };
   },
-  components: { AnswersCircle },
+  components: { AnswersCircle, Question },
 
   methods: {
     addToCircle() {
@@ -81,8 +80,9 @@ export default {
 }
 .mediNinja {
   display: inline;
-  height: 200px;
-  bottom: -130px;
+  position: relative;
+  height: 150px;
+  bottom: -160px;
   margin: 0px;
 }
 
@@ -99,17 +99,7 @@ export default {
 .addBtn:hover {
   box-shadow: 2px 2px 4px 2px rgba(15, 15, 15, 0.5);
 }
-.question {
-  background-color: gold;
-  vertical-align: top;
 
-  top: 20px;
-  margin: 0px;
-  display: inline-block;
-  height: 400px;
-  width: 500px;
-  background-color: aquamarine;
-}
 /* new try */
 </style>
 

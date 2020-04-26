@@ -24,7 +24,7 @@ export default {
   props: ["answers", "ispaused"],
   data() {
     return {
-      oldAnswers: [],
+      oldAnswers: [...this.answers],
       spinDuration: 12,
       sizeOfwheel: 340
     };
@@ -38,15 +38,13 @@ export default {
     }, 0);
   },
   updated() {
-    const newAnswers = [...this.answers].filter(
-      a => !this.oldAnswers.includes(a)
-    );
-
-    console.log(newAnswers);
+    const newAnswers = [...this.answers]
+      .map(o => o.ki)
+      .filter(a => !this.oldAnswers.map(o => o.ki).includes(a));
+    console.log("new: ", newAnswers);
     this.oldAnswers = [...this.answers];
-    const updatedAns = newAnswers.length
-      ? this.answers.indexOf(newAnswers)
-      : 99999999;
+    const updatedAns = newAnswers.length === 1 ? newAnswers[0] : 99999999;
+
     this.updateLayout(updatedAns);
   },
   methods: {
@@ -89,7 +87,8 @@ export default {
         a.style.left = x + "px";
         a.style.top = y + "px";
 
-        if (updateNumber === [...fields].indexOf(a) + 1) {
+        if ("ans" + updateNumber === a.dataset.ansnum) {
+          console.log(updateNumber, a.dataset.ansnum);
           a.style.animationDelay = animationDelay;
           a.classList.remove("trasition");
           a.style.opacity = "0.0";
