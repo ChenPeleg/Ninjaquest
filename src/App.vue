@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <GameHeader text="Ninja Quest" :size="sizeOfHeader" />
-    <MeditationZone />
+    <MeditationZone v-if="AllQuestions" :AllQuestions="AllQuestions" />
     <paintingBackGround />
   </div>
 </template>
@@ -24,11 +24,11 @@ export default {
       AllQuestions: false
     };
   },
-  mounted: () => {
+  mounted: function() {
     const url = "/allquestions.json";
     axios.get(url, { crossdomain: true }).then(res => {
-      // this.AllQuestions = res.data;
-      console.log(res, this);
+      this.AllQuestions = res.data;
+      console.log(this.AllQuestions);
     });
   }
 };

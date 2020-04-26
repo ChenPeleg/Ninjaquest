@@ -9,7 +9,7 @@
           <img class="mediNinja" src="../assets/images/medi-ninja.svg" alt="medi-ninja" />
         </td>
         <td>
-          <Question />
+          <Question>{{questionText}}</Question>
         </td>
       </tr>
     </table>
@@ -25,6 +25,7 @@ import Question from "./Question";
 
 export default {
   name: "MeditaionZone",
+  props: ["AllQuestions"],
   data() {
     return {
       storedAnswers: [9, 10, 11, 12, 13, 6, 7, 8].map(e => {
@@ -34,10 +35,27 @@ export default {
       answers: [1, 2, 3, 4, 5].map(e => {
         return { id: e, image: `ans/avt (${e}).svg` };
       }),
-      ispaused: false
+      ispaused: false,
+      questionNumber: 1
     };
   },
   components: { AnswersCircle, Question },
+  computed: {
+    answers1: function() {
+      const origin = this.AllQuestions.questions[this.questionNumber].answers;
+      const baseUrl = this.AllQuestions.meta.baseUrl;
+      const mapped = origin.map(o => {
+        return { id: origin.indexOf(o), image: baseUrl + o };
+      });
+      // answers: [1, 2, 3, 4, 5].map(e => {
+      //   return { id: e, image: `ans/avt (${e}).svg` };
+      // }),
+      return mapped;
+    },
+    questionText: function() {
+      return this.AllQuestions.questions[this.questionNumber].text;
+    }
+  },
 
   methods: {
     addToCircle() {

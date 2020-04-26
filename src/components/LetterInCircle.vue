@@ -32,6 +32,7 @@ export default {
 }
 
 .letterincircle {
+  opacity: 0.2;
   font-family: "MaShanZheng";
   font-weight: 300;
   font-size: 220px;

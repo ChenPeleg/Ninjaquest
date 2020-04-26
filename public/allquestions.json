@@ -1,84 +1,98 @@
 {
   "meta": {
-    "name": "English Colors",
-    "id": "abc123"
+    "name": "English Animals",
+    "id": "abc123",
+    "baseUrl": "ans/"
   },
   "questions": {
     "1": {
       "type": "info",
-      "text": "The colors Lesson: \n\n In this lesson we will practice questions about colors. Choose the correct answer and press \"submit\".",
-      "answers": [],
+      "text": "It is man's best friend. It likes to eat meat and bones.",
+      "answers": [
+        "dog.svg",
+        "lion.svg",
+        "monkey.svg",
+        "cow.svg",
+        "tiger.svg"
+      ],
       "solution": "1"
     },
     "2": {
-      "text": "What is the color of sand?",
+      "text": "Lives in a farm. Has a lot of milk.",
       "answers": [
-        "blue",
-        "black",
-        "green",
-        "yellow"
+        "frog.svg",
+        "monkey.svg",
+        "cat.svg",
+        "cow.svg",
+        "dog.svg"
       ],
       "solution": "4"
     },
     "3": {
-      "text": "My dog Lucky is brown and...",
+      "text": "I live on trees and I like to eat bannanas. Who am I?",
       "answers": [
-        "purple",
-        "white",
-        "green",
-        "pink"
+        "lion2.svg",
+        "rabbit.svg",
+        "monkey.svg",
+        "panda.svg",
+        "dog.svg"
       ],
-      "solution": "2"
+      "solution": "3"
     },
     "4": {
-      "text": "Please cook the meat  it's too...",
+      "text": "I walk very slow. I carry my house on my back. Who am I?",
       "answers": [
-        "orange",
-        "yellow",
-        "red",
-        "green"
-      ],
-      "solution": "3"
-    },
-    "5": {
-      "text": "Look! Your grass is very...",
-      "answers": [
-        "blue",
-        "white",
-        "green",
-        "pink"
-      ],
-      "solution": "3"
-    },
-    "6": {
-      "text": "Are you shy? Your face is...",
-      "answers": [
-        "red",
-        "purple",
-        "green",
-        "black"
-      ],
-      "solution": "1"
-    },
-    "7": {
-      "text": "This banana looks good and...",
-      "answers": [
-        "white",
-        "yellow",
-        "blue",
-        "pink"
+        "frog.svg",
+        "turtle.svg",
+        "chick.svg",
+        "flamingo.svg",
+        "girafe.svg"
       ],
       "solution": "2"
     },
-    "8": {
-      "text": "Which of these is not a color?",
+    "5": {
+      "text": "I know how to fly but I'm not a bird. I'm very pretty but very gentle. I am...",
       "answers": [
-        "orange",
-        "yellow",
-        "three",
-        "pink"
+        "chick.svg",
+        "crab.svg",
+        "butterfly.svg",
+        "girafe.svg",
+        "flamingo.svg"
       ],
-      "solution": "3"
+      "solution": "5"
+    },
+    "6": {
+      "text": "I'm big, and you can say I'm King of the animals. I am...",
+      "answers": [
+        "dog.svg",
+        "lion.svg",
+        "chick.svg",
+        "monkey.svg",
+        "rabbit.svg"
+      ],
+      "solution": "2"
+    },
+    "7": {
+      "text": "I can run very fast. I have two long ears.",
+      "answers": [
+        "frog.svg",
+        "crab.svg",
+        "panda.svg",
+        "cat.svg",
+        "rabbit.svg"
+      ],
+      "solution": "5"
+    },
+    "8": {
+      "text": "I live in the water, I have more than 5 legs.",
+      "answers": [
+        "crab.svg",
+        "dog.svg",
+        "turtle.svg",
+        "lion.svg",
+        "cow.svg"
+      ],
+      "solution": "1"
     }
   }
 }

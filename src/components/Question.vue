@@ -1,5 +1,9 @@
 <template>
   <div class="question">
+    <div class="question-text">
+      <slot />
+    </div>
+
     <img class="scroll" src="../assets/images/scroll.svg" />
   </div>
 </template>
@@ -13,6 +17,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@font-face {
+  font-family: "Julee";
+  src: url("../assets/fonts/Julee-Regular.ttf");
+}
 .question {
   vertical-align: top;
   position: relative;
@@ -22,7 +30,13 @@ export default {
   height: 400px;
   width: 600px;
 }
-
+.question-text {
+  font-family: "Julee";
+  font-weight: bold;
+  padding: 90px;
+  position: absolute;
+  font-size: 37px;
+}
 .scroll {
   vertical-align: top;
   width: 100%;
