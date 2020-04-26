@@ -1,26 +1,27 @@
 <template>
   <div id="answerscircle">
-    <ul id="listOfAnswers" class="spin" :class="{pause : ispaused}">
+    <ul id="listOfAnswers" class="spin shadow" :class="{pause : ispaused}">
       <li
-        class="item trasition"
+        class="item trasition itembg"
         :class="{pause : ispaused}"
         v-for="(ans, index) in answers"
         :key="index"
-        :data-ansnum="ans.ki"
-        v-on:click="removeFromCircle($event)"
+        :data-ansnum="ans.id"
+        @click="pressAnswer($event,ans.id)"
       >
-        <img :src="ans.image" :data-ansnum="ans.ki" />
+        <img :src="ans.image" :data-ansnum="ans.id" />
       </li>
     </ul>
+    <LetterInCircle />
   </div>
 </template>
 
 <script>
 import getCurrentRotationFixed from "../Utils/getAngle.js";
-
+import LetterInCircle from "./LetterInCircle";
 export default {
   name: "AnswersCircle",
-  //components: {}
+  components: { LetterInCircle },
   props: ["answers", "ispaused"],
   data() {
     return {
@@ -39,23 +40,17 @@ export default {
   },
   updated() {
     const newAnswers = [...this.answers]
-      .map(o => o.ki)
-      .filter(a => !this.oldAnswers.map(o => o.ki).includes(a));
-    console.log("new: ", newAnswers);
+      .map(o => o.id)
+      .filter(a => !this.oldAnswers.map(o => o.id).includes(a));
+
     this.oldAnswers = [...this.answers];
     const updatedAns = newAnswers.length === 1 ? newAnswers[0] : 99999999;
 
     this.updateLayout(updatedAns);
   },
   methods: {
-    removeFromCircle(event) {
-      const key = event.target.dataset.ansnum;
-      const removed = this.answers.splice(key, 1);
-      this.storedAnswers.push(removed);
-      setTimeout(() => this.updateLayout(), 2);
-    },
-    toggleSpin() {
-      this.ispaused = !this.ispaused;
+    pressAnswer(event, id) {
+      this.$emit("pressAnswer", { event, id });
     },
 
     updateLayout(updateNumber = 10000000) {
@@ -87,8 +82,7 @@ export default {
         a.style.left = x + "px";
         a.style.top = y + "px";
 
-        if ("ans" + updateNumber === a.dataset.ansnum) {
-          console.log(updateNumber, a.dataset.ansnum);
+        if (updateNumber === +a.dataset.ansnum) {
           a.style.animationDelay = animationDelay;
           a.classList.remove("trasition");
           a.style.opacity = "0.0";
@@ -106,12 +100,13 @@ export default {
 
 <style lang="scss" scoped>
 #answerscircle {
+  position: relative;
   padding: 0px;
   margin: 0px;
 }
 #listOfAnswers {
   --sizeOfwheel: 340px;
-  --spinduration: 10s;
+  --spinduration: 12s;
   --numberOfAnswers: 7;
   --sizeOfans: 60px;
   //  calc(var(--sizeOfwheel) / (var(--numberOfAnswers) / 3.4));
@@ -122,7 +117,7 @@ export default {
   width: var(--sizeOfwheel);
   height: var(--sizeOfwheel);
   margin: 10px auto;
-  border: 1px solid #000;
+  border: 4px solid rgba(73, 70, 70, 0.301);
   display: inline-block;
   border-radius: 50%;
   list-style-type: none;
@@ -155,5 +150,19 @@ export default {
 }
 .trasition {
   transition: all 0.5s ease-in-out;
+}
+.shadow {
+  box-shadow: 4px 4px 1px rgba(134, 134, 141, 0.3),
+    -2px -4px 1px rgba(121, 120, 120, 0.5),
+    4px 4px 8px 5px rgba(100, 100, 100, 0.7),
+    -1px 0px 1px 1px rgba(229, 255, 0, 0.404);
+}
+.itembg {
+  // background: radial-gradient(
+  //   circle,
+  //   rgba(242, 255, 0, 0.767) 0%,
+  //   rgba(242, 255, 0, 0.096) 50%,
+  //   rgba(255, 251, 0, 0) 100%
+  // );
 }
 </style>

@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import GameHeader from "./components/GameHeader.vue";
 import paintingBackGround from "./components/PaintedBackGround";
 import MeditationZone from "./components/MeditaionZone";
@@ -19,8 +20,16 @@ export default {
   },
   data: () => {
     return {
-      sizeOfHeader: 50
+      sizeOfHeader: 50,
+      AllQuestions: false
     };
+  },
+  mounted: () => {
+    const url = "/allquestions.json";
+    axios.get(url, { crossdomain: true }).then(res => {
+      // this.AllQuestions = res.data;
+      console.log(res, this);
+    });
   }
 };
 </script>

@@ -3,7 +3,7 @@
     <table>
       <tr>
         <td>
-          <AnswersCircle :answers="answers" :ispaused="ispaused" />
+          <AnswersCircle :answers="answers" :ispaused="ispaused" @pressAnswer="pressAnswer" />
         </td>
         <td>
           <img class="mediNinja" src="../assets/images/medi-ninja.svg" alt="medi-ninja" />
@@ -27,12 +27,12 @@ export default {
   name: "MeditaionZone",
   data() {
     return {
-      storedAnswers: [9, 10, 11, 12, 13, 2, 3, 4, 5, 6, 7, 8].map(e => {
-        return { ki: `ans${e}`, image: `ans/avt (${e}).svg` };
+      storedAnswers: [9, 10, 11, 12, 13, 6, 7, 8].map(e => {
+        return { id: e, image: `ans/avt (${e}).svg` };
       }),
       // 2, 3, 4, 5, 6, 7, 8
-      answers: [1, 2].map(e => {
-        return { ki: `ans${e}`, image: `ans/avt (${e}).svg` };
+      answers: [1, 2, 3, 4, 5].map(e => {
+        return { id: e, image: `ans/avt (${e}).svg` };
       }),
       ispaused: false
     };
@@ -44,25 +44,23 @@ export default {
       if (this.storedAnswers.length) {
         const returned = this.storedAnswers.pop();
         this.answers.push(returned);
-        const arrayPosition = this.answers.length;
-        setTimeout(() => {
-          this.updateAnswersCircle(arrayPosition);
-        }, 1);
       } else {
         alert("no more");
       }
     },
-    removeFromCircle(event) {
-      const key = event.target.dataset.ansnum;
-      const removed = this.answers.splice(key, 1);
+    pressAnswer(payload) {
+      this.removeFromCircle(payload.event, payload.id);
+    },
+    removeFromCircle(event, id) {
+      const removed = this.answers.filter(a => +a.id === +id)[0];
+      const newAnswers = this.answers.filter(a => +a.id !== +id);
+      this.answers = newAnswers;
       this.storedAnswers.push(removed);
-      setTimeout(() => this.updateAnswersCircle(), 2);
+      console.log("removed", removed);
     },
     toggleSpin() {
       this.ispaused = !this.ispaused;
-    },
-
-    updateAnswersCircle() {}
+    }
   }
 
   //components: {}
