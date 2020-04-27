@@ -2,7 +2,7 @@
   <div id="answerscircle">
     <ul id="listOfAnswers" class="spin shadow" :class="{pause : ispaused}">
       <li
-        class="item trasition itembg"
+        class="item trasition"
         :class="{pause : ispaused}"
         v-for="(ans, index) in answers"
         :key="index"
@@ -36,7 +36,8 @@ export default {
       list.style.setProperty("--spinduration", `${this.spinDuration}s`);
       list.style.setProperty("--sizeOfwheel", `${this.sizeOfwheel}px`);
       this.updateLayout();
-    }, 0);
+      //setTimeout(() => this.updateLayout(), 300); // to get the radious good after the initial ordering
+    }, 100);
   },
   updated() {
     const newAnswers = [...this.answers]
@@ -66,8 +67,8 @@ export default {
       var radius = Number(width) / 2;
       const animationDelay = `${(angleOfContainer / 360) *
         -this.spinDuration}s`;
-      const itemSize = calcItemSize(width, fields.length) + "px";
-      container.style.setProperty("--sizeOfans", itemSize);
+      const itemSize = calcItemSize(width, fields.length);
+      container.style.setProperty("--sizeOfans", itemSize + "px");
 
       var angle = 0,
         step = (2 * Math.PI) / fields.length;
@@ -81,6 +82,18 @@ export default {
         );
         a.style.left = x + "px";
         a.style.top = y + "px";
+        a.dataset.ansnum === "1"
+          ? console.log(
+              "x",
+              x,
+              "y",
+              y,
+              "offHeight",
+              a.offsetHeight,
+              "offWidth",
+              a.offsetWidth
+            )
+          : null;
 
         if (updateNumber === +a.dataset.ansnum) {
           a.style.animationDelay = animationDelay;
@@ -108,7 +121,7 @@ export default {
   --sizeOfwheel: 340px;
   --spinduration: 12s;
   --numberOfAnswers: 7;
-  --sizeOfans: 60px;
+  --sizeOfans: 90px;
   //  calc(var(--sizeOfwheel) / (var(--numberOfAnswers) / 3.4));
   // position: relative;
   display: inline;

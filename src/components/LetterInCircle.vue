@@ -9,9 +9,13 @@ export default {
   //props: {}
   computed: {
     currentLetter: function() {
-      const l = this.letters.length - 1;
-      const num = Math.floor(Math.random() * l);
-      return this.letters.charAt(num);
+      const l = this.letters.length - 4;
+      const num = Math.abs(Math.floor(Math.random() * l));
+
+      // return "春夏\n秋冬";
+      return (
+        this.letters.substr(num, 2) + "\n" + this.letters.substr(num + 2, 2)
+      );
     }
   },
   data: () => {
@@ -35,10 +39,10 @@ export default {
   opacity: 0.2;
   font-family: "MaShanZheng";
   font-weight: 300;
-  font-size: 220px;
+  font-size: 120px;
   position: absolute;
-  left: 23%;
-  top: 15%;
+  // left: 0%;
+  top: 17%;
   text-align: center;
   z-index: -1;
 }

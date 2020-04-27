@@ -28,7 +28,6 @@ export default {
     const url = "/allquestions.json";
     axios.get(url, { crossdomain: true }).then(res => {
       this.AllQuestions = res.data;
-      console.log(this.AllQuestions);
     });
   }
 };

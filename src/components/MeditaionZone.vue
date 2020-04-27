@@ -32,7 +32,7 @@ export default {
         return { id: e, image: `ans/avt (${e}).svg` };
       }),
       // 2, 3, 4, 5, 6, 7, 8
-      answers: [1, 2, 3, 4, 5].map(e => {
+      answers1: [1, 2, 3, 4].map(e => {
         return { id: e, image: `ans/avt (${e}).svg` };
       }),
       ispaused: false,
@@ -41,7 +41,7 @@ export default {
   },
   components: { AnswersCircle, Question },
   computed: {
-    answers1: function() {
+    answers: function() {
       const origin = this.AllQuestions.questions[this.questionNumber].answers;
       const baseUrl = this.AllQuestions.meta.baseUrl;
       const mapped = origin.map(o => {
