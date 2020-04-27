@@ -1,6 +1,6 @@
 <template>
   <div id="answerscircle">
-    <ul id="listOfAnswers" class="spin shadow" :class="{pause : ispaused}">
+    <ul id="listOfAnswers" ref="ansRef" class="spin shadow" :class="{pause : ispaused}">
       <li
         class="item trasition"
         :class="{pause : ispaused}"
@@ -32,7 +32,8 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      const list = document.querySelector("#listOfAnswers");
+      console.log(this.$refs.ansRef);
+      const list = this.$refs.ansRef;
       list.style.setProperty("--spinduration", `${this.spinDuration}s`);
       list.style.setProperty("--sizeOfwheel", `${this.sizeOfwheel}px`);
       this.updateLayout();
@@ -58,12 +59,12 @@ export default {
       const calcItemSize = (widthOfContainer, numberOfItems) =>
         widthOfContainer / 4.5 + (widthOfContainer * 0.2) / numberOfItems + 5;
 
-      const container = document.querySelector("#listOfAnswers");
+      const container = this.$refs.ansRef;
 
       const fields = container.childNodes;
       const width = container.offsetWidth;
       const height = container.offsetHeight;
-      const angleOfContainer = getCurrentRotationFixed("listOfAnswers");
+      const angleOfContainer = getCurrentRotationFixed(this.$refs.ansRef);
       var radius = Number(width) / 2;
       const animationDelay = `${(angleOfContainer / 360) *
         -this.spinDuration}s`;
@@ -82,18 +83,7 @@ export default {
         );
         a.style.left = x + "px";
         a.style.top = y + "px";
-        a.dataset.ansnum === "1"
-          ? console.log(
-              "x",
-              x,
-              "y",
-              y,
-              "offHeight",
-              a.offsetHeight,
-              "offWidth",
-              a.offsetWidth
-            )
-          : null;
+        a.dataset.ansnum === "1";
 
         if (updateNumber === +a.dataset.ansnum) {
           a.style.animationDelay = animationDelay;

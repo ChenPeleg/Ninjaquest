@@ -32,7 +32,7 @@ export default {
         return { id: e, image: `ans/avt (${e}).svg` };
       }),
       // 2, 3, 4, 5, 6, 7, 8
-      answers1: [1, 2, 3, 4].map(e => {
+      answers: [1, 2, 3, 4].map(e => {
         return { id: e, image: `ans/avt (${e}).svg` };
       }),
       ispaused: false,
@@ -41,7 +41,7 @@ export default {
   },
   components: { AnswersCircle, Question },
   computed: {
-    answers: function() {
+    answers1: function() {
       const origin = this.AllQuestions.questions[this.questionNumber].answers;
       const baseUrl = this.AllQuestions.meta.baseUrl;
       const mapped = origin.map(o => {
@@ -74,7 +74,6 @@ export default {
       const newAnswers = this.answers.filter(a => +a.id !== +id);
       this.answers = newAnswers;
       this.storedAnswers.push(removed);
-      console.log("removed", removed);
     },
     toggleSpin() {
       this.ispaused = !this.ispaused;

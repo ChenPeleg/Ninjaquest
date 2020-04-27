@@ -36,9 +36,10 @@ const getCurrentRotation = (elid) => {
 
 }
 */
-const getCurrentRotationFixed = (elid) => {
+const getCurrentRotationFixed = (elid) => { // or element
     var angle;
-    var el = document.getElementById(elid);
+    // var isElm = elid instanceof HTMLElement ? true : false
+    var el = elid
     var st = window.getComputedStyle(el, null);
     var tr = st.getPropertyValue("-webkit-transform") ||
         st.getPropertyValue("-moz-transform") ||
