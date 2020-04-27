@@ -32,7 +32,6 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      console.log(this.$refs.ansRef);
       const list = this.$refs.ansRef;
       list.style.setProperty("--spinduration", `${this.spinDuration}s`);
       list.style.setProperty("--sizeOfwheel", `${this.sizeOfwheel}px`);

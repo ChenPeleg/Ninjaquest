@@ -31,27 +31,19 @@ export default {
       storedAnswers: [9, 10, 11, 12, 13, 6, 7, 8].map(e => {
         return { id: e, image: `ans/avt (${e}).svg` };
       }),
+      questionNumber: 1,
       // 2, 3, 4, 5, 6, 7, 8
-      answers: [1, 2, 3, 4].map(e => {
-        return { id: e, image: `ans/avt (${e}).svg` };
+      answers: this.AllQuestions.questions[1].answers.map(o => {
+        return {
+          id: origin.indexOf(o) + 1,
+          image: this.AllQuestions.meta.baseUrl + o
+        };
       }),
-      ispaused: false,
-      questionNumber: 1
+      ispaused: false
     };
   },
   components: { AnswersCircle, Question },
   computed: {
-    answers1: function() {
-      const origin = this.AllQuestions.questions[this.questionNumber].answers;
-      const baseUrl = this.AllQuestions.meta.baseUrl;
-      const mapped = origin.map(o => {
-        return { id: origin.indexOf(o), image: baseUrl + o };
-      });
-      // answers: [1, 2, 3, 4, 5].map(e => {
-      //   return { id: e, image: `ans/avt (${e}).svg` };
-      // }),
-      return mapped;
-    },
     questionText: function() {
       return this.AllQuestions.questions[this.questionNumber].text;
     }
@@ -67,7 +59,16 @@ export default {
       }
     },
     pressAnswer(payload) {
-      this.removeFromCircle(payload.event, payload.id);
+      this.checkIgCorrect(payload.id);
+      // this.removeFromCircle(payload.event, payload.id);
+    },
+    checkIgCorrect(payload) {
+      const isCorrect =
+        +this.AllQuestions.questions[this.questionNumber].solution ===
+        +payload.id;
+      isCorrect
+        ? alert("true")
+        : this.removeFromCircle(payload.event, payload.id);
     },
     removeFromCircle(event, id) {
       const removed = this.answers.filter(a => +a.id === +id)[0];
