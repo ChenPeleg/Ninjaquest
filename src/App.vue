@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <GameHeader text="Ninja Quest" :size="sizeOfHeader" />
-    <MeditationZone v-if="AllQuestions" :AllQuestions="AllQuestions" />
+    <MeditationZone
+      v-if="AllQuestions"
+      :AllQuestions="AllQuestions"
+      :questionNumber="questionNumber"
+      @nextQuestion="questionNumber++"
+    />
     <paintingBackGround />
   </div>
 </template>
@@ -21,7 +26,8 @@ export default {
   data: () => {
     return {
       sizeOfHeader: 50,
-      AllQuestions: false
+      AllQuestions: false,
+      questionNumber: 1
     };
   },
   mounted: function() {

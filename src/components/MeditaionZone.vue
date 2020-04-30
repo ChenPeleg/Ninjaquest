@@ -25,20 +25,20 @@ import Question from "./Question";
 
 export default {
   name: "MeditaionZone",
-  props: ["AllQuestions"],
+  props: ["AllQuestions", "questionNumber"],
   data() {
     return {
-      storedAnswers: [9, 10, 11, 12, 13, 6, 7, 8].map(e => {
-        return { id: e, image: `ans/avt (${e}).svg` };
-      }),
-      questionNumber: 1,
-      // 2, 3, 4, 5, 6, 7, 8
-      answers: this.AllQuestions.questions[1].answers.map(o => {
-        return {
-          id: origin.indexOf(o) + 1,
-          image: this.AllQuestions.meta.baseUrl + o
-        };
-      }),
+      answers: this.AllQuestions.questions[this.questionNumber].answers.map(
+        o => {
+          return {
+            id:
+              this.AllQuestions.questions[this.questionNumber].answers.indexOf(
+                o
+              ) + 1,
+            image: this.AllQuestions.meta.baseUrl + o
+          };
+        }
+      ),
       ispaused: false
     };
   },
@@ -46,35 +46,52 @@ export default {
   computed: {
     questionText: function() {
       return this.AllQuestions.questions[this.questionNumber].text;
+    },
+    calcAnswer: function() {
+      return this.AllQuestions.questions[this.questionNumber].answers.map(o => {
+        return {
+          id:
+            this.AllQuestions.questions[this.questionNumber].answers.indexOf(
+              o
+            ) + 1,
+          image: this.AllQuestions.meta.baseUrl + o
+        };
+      });
     }
   },
 
   methods: {
     addToCircle() {
-      if (this.storedAnswers.length) {
-        const returned = this.storedAnswers.pop();
-        this.answers.push(returned);
-      } else {
-        alert("no more");
-      }
+      return;
     },
     pressAnswer(payload) {
-      this.checkIgCorrect(payload.id);
+      this.checkIgCorrect(payload);
       // this.removeFromCircle(payload.event, payload.id);
     },
     checkIgCorrect(payload) {
       const isCorrect =
         +this.AllQuestions.questions[this.questionNumber].solution ===
         +payload.id;
-      isCorrect
-        ? alert("true")
-        : this.removeFromCircle(payload.event, payload.id);
+
+      isCorrect ? this.rightAnswer(payload.id) : this.wrongAnswer(payload.id);
     },
-    removeFromCircle(event, id) {
-      const removed = this.answers.filter(a => +a.id === +id)[0];
+    rightAnswer() {
+      while (this.answers.length) {
+        this.answers.splice(this.answers.length - 1, 1);
+      }
+      setTimeout(() => {
+        this.$emit("nextQuestion", {});
+        this.answers = [...this.calcAnswer];
+      }, 1000);
+    },
+    wrongAnswer(id) {
+      this.removeFromCircle(id);
+    },
+    removeFromCircle(id) {
       const newAnswers = this.answers.filter(a => +a.id !== +id);
-      this.answers = newAnswers;
-      this.storedAnswers.push(removed);
+      console.log("removeFromCircle", newAnswers);
+      // this.answers = newAnswers;
+      this.$delete(this.answers, 3);
     },
     toggleSpin() {
       this.ispaused = !this.ispaused;

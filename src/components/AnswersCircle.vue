@@ -7,7 +7,7 @@
         v-for="(ans, index) in answers"
         :key="index"
         :data-ansnum="ans.id"
-        @click="pressAnswer($event,ans.id)"
+        @click="pressAnswer($event, ans.id )"
       >
         <img :src="ans.image" :data-ansnum="ans.id" />
       </li>
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       oldAnswers: [...this.answers],
-      spinDuration: 12,
+      spinDuration: 24, //12
       sizeOfwheel: 340
     };
   },
@@ -40,12 +40,23 @@ export default {
     }, 100);
   },
   updated() {
+    console.log("upadating Answer circle");
     const newAnswers = [...this.answers]
       .map(o => o.id)
       .filter(a => !this.oldAnswers.map(o => o.id).includes(a));
 
     this.oldAnswers = [...this.answers];
-    const updatedAns = newAnswers.length === 1 ? newAnswers[0] : 99999999;
+    let updatedAns = 1000;
+    switch (newAnswers.length) {
+      case 0:
+        updatedAns = 0;
+        break;
+      case 1:
+        updatedAns = newAnswers[0];
+        break;
+      default:
+        updatedAns = 1000;
+    }
 
     this.updateLayout(updatedAns);
   },
@@ -54,7 +65,7 @@ export default {
       this.$emit("pressAnswer", { event, id });
     },
 
-    updateLayout(updateNumber = 10000000) {
+    updateLayout(updateNumber = 0) {
       const calcItemSize = (widthOfContainer, numberOfItems) =>
         widthOfContainer / 4.5 + (widthOfContainer * 0.2) / numberOfItems + 5;
 
@@ -84,7 +95,7 @@ export default {
         a.style.top = y + "px";
         a.dataset.ansnum === "1";
 
-        if (updateNumber === +a.dataset.ansnum) {
+        if (updateNumber === +a.dataset.ansnum || updateNumber === 1000) {
           a.style.animationDelay = animationDelay;
           a.classList.remove("trasition");
           a.style.opacity = "0.0";
