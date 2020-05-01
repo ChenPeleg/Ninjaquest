@@ -12,7 +12,7 @@
         "dog.svg",
         "lion.svg",
         "monkey.svg",
-        "cow.svg",
+        "chick.svg",
         "tiger.svg"
       ],
       "solution": "1"
@@ -24,7 +24,7 @@
         "monkey.svg",
         "cat.svg",
         "cow.svg",
-        "dog.svg"
+        "panda.svg"
       ],
       "solution": "4"
     },
@@ -59,7 +59,7 @@
         "girafe.svg",
         "flamingo.svg"
       ],
-      "solution": "5"
+      "solution": "3"
     },
     "6": {
       "text": "I'm big, and you can say I'm King of the animals. I am...",

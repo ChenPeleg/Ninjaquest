@@ -12,7 +12,7 @@
         <img :src="ans.image" :data-ansnum="ans.id" />
       </li>
     </ul>
-    <LetterInCircle />
+    <LetterInCircle :isbright="correctAnimation" />
   </div>
 </template>
 
@@ -22,7 +22,7 @@ import LetterInCircle from "./LetterInCircle";
 export default {
   name: "AnswersCircle",
   components: { LetterInCircle },
-  props: ["answers", "ispaused"],
+  props: ["answers", "ispaused", "correctAnimation"],
   data() {
     return {
       oldAnswers: [...this.answers],
@@ -41,6 +41,9 @@ export default {
   },
   updated() {
     console.log("upadating Answer circle");
+    if (this.correctAnimation) {
+      this.animateCorrect();
+    }
     const newAnswers = [...this.answers]
       .map(o => o.id)
       .filter(a => !this.oldAnswers.map(o => o.id).includes(a));
@@ -61,6 +64,7 @@ export default {
     this.updateLayout(updatedAns);
   },
   methods: {
+    animateCorrect() {},
     pressAnswer(event, id) {
       this.$emit("pressAnswer", { event, id });
     },

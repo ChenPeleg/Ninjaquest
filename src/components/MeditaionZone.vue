@@ -3,7 +3,12 @@
     <table>
       <tr>
         <td>
-          <AnswersCircle :answers="answers" :ispaused="ispaused" @pressAnswer="pressAnswer" />
+          <AnswersCircle
+            :answers="answers"
+            :ispaused="ispaused"
+            :correctAnimation="correctAnimation"
+            @pressAnswer="pressAnswer"
+          />
         </td>
         <td>
           <img class="mediNinja" src="../assets/images/medi-ninja.svg" alt="medi-ninja" />
@@ -39,7 +44,8 @@ export default {
           };
         }
       ),
-      ispaused: false
+      ispaused: false,
+      correctAnimation: false
     };
   },
   components: { AnswersCircle, Question },
@@ -75,14 +81,15 @@ export default {
 
       isCorrect ? this.rightAnswer(payload.id) : this.wrongAnswer(payload.id);
     },
-    rightAnswer() {
-      while (this.answers.length) {
-        this.answers.splice(this.answers.length - 1, 1);
-      }
+    rightAnswer(id) {
+      this.answers = [];
+      this.$emit("nextQuestion", { id });
+      this.correctAnimation = true;
       setTimeout(() => {
-        this.$emit("nextQuestion", {});
+        this.correctAnimation = false;
         this.answers = [...this.calcAnswer];
-      }, 1000);
+        console.log(this.answers, this.calcAnswer);
+      }, 2000);
     },
     wrongAnswer(id) {
       this.removeFromCircle(id);
@@ -90,8 +97,7 @@ export default {
     removeFromCircle(id) {
       const newAnswers = this.answers.filter(a => +a.id !== +id);
       console.log("removeFromCircle", newAnswers);
-      // this.answers = newAnswers;
-      this.$delete(this.answers, 3);
+      this.answers = [...newAnswers];
     },
     toggleSpin() {
       this.ispaused = !this.ispaused;

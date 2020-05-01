@@ -1,12 +1,12 @@
 <template>
-  <div class="letterincircle letterFade">{{currentLetter}}</div>
+  <div class="letterincircle letterFade" :class="{bright: isbright}">{{currentLetter}}</div>
 </template>
 
 <script>
 export default {
   name: "LetterInCircle",
   //components: {}
-  //props: {}
+  props: ["isbright"],
   computed: {
     currentLetter: function() {
       const l = this.letters.length - 4;
@@ -36,12 +36,12 @@ export default {
 }
 
 .letterincircle {
-  opacity: 0.2;
+  opacity: 0.1;
   font-family: "MaShanZheng";
   font-weight: 300;
   font-size: 120px;
   position: absolute;
-  // left: 0%;
+  transition: opacity ease-in-out 1s;
   top: 17%;
   text-align: center;
   z-index: -1;
@@ -49,32 +49,51 @@ export default {
 .letterFade {
   animation: letterFade 10s infinite;
 }
+.bright {
+  opacity: 1;
+}
 @keyframes letterFade {
   0% {
     color: rgba(224, 22, 22, 0.959);
-    text-shadow: -6px 6px wheat;
+    text-shadow: -6px 6px wheat, 2px -2px 5px rgb(238, 255, 4),
+      2px -2px 10px rgb(238, 255, 4), 2px -2px 15px rgb(238, 255, 4);
   }
   20% {
-    color: rgba(158, 160, 130, 0.3);
-    text-shadow: 14px -12px 3px rgba(238, 255, 4, 0.883);
+    color: rgba(111, 5, 172, 0.226);
+    text-shadow: 14px -12px 3px rgba(255, 12, 4, 0.883),
+      2px -2px 30px rgb(238, 255, 4), 2px -2px 5px rgb(238, 255, 4),
+      2px -2px 10px rgb(238, 255, 4), 2px -2px 15px rgb(238, 255, 4);
   }
   40% {
-    color: rgba(241, 226, 13, 0.411);
-    text-shadow: 4px 4px 3px rgba(12, 12, 11, 0.322);
+    color: rgba(9, 167, 173, 0.788);
+    text-shadow: 4px 4px 3px rgba(15, 15, 15, 0.856),
+      2px -2px 5px rgb(238, 255, 4), 2px -2px 10px rgb(238, 255, 4),
+      2px -2px 15px rgb(238, 255, 4);
   }
   60% {
-    color: rgba(135, 170, 53, 0.116);
-    text-shadow: -4px 4px 3px rgba(238, 255, 0, 0.322);
+    color: rgba(19, 3, 250, 0.349);
+    text-shadow: -4px 4px 3px rgba(81, 255, 0, 0.959),
+      2px -2px 5px rgb(238, 255, 4), 2px -2px 10px rgb(238, 255, 4),
+      2px -2px 15px rgb(238, 255, 4);
   }
   80% {
-    color: rgba(216, 120, 120, 0.096);
-    text-shadow: 10px -4px 3px rgba(238, 255, 0, 0.722),
-      11px -5px 3px rgba(23, 235, 41, 0.722),
-      13px -6px 3px rgba(255, 14, 14, 0.877);
+    color: rgb(110, 5, 102);
+    text-shadow: 12px 4px 3px rgba(15, 143, 143, 0.863),
+      11px -5px 3px rgba(2, 255, 23, 0.722),
+      13px -6px 3px rgba(192, 22, 22, 0.486), 2px -2px 5px rgb(238, 255, 4),
+      2px -2px 10px rgb(238, 255, 4), 2px -2px 15px rgb(238, 255, 4);
   }
+  90% {
+    color: rgba(245, 17, 17, 0.877);
+    text-shadow: 4px 9px 3px rgba(238, 255, 0, 0.322),
+      2px -2px 5px rgb(238, 255, 4), 2px -2px 10px rgb(238, 255, 4),
+      2px -2px 15px rgb(238, 255, 4);
+  }
+
   100% {
-    color: rgba(228, 68, 68, 0.596);
-    text-shadow: 4px 9px 3px rgba(238, 255, 0, 0.322);
+    color: rgba(224, 22, 22, 0.959);
+    text-shadow: -6px 6px wheat, 2px -2px 5px rgb(238, 255, 4),
+      2px -2px 10px rgb(238, 255, 4), 2px -2px 15px rgb(238, 255, 4);
   }
 }
 </style>
