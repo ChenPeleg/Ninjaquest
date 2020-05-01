@@ -11,7 +11,7 @@
           />
         </td>
         <td>
-          <img class="mediNinja" src="../assets/images/medi-ninja.svg" alt="medi-ninja" />
+          <MediNinja :correctAnimation="correctAnimation" />
         </td>
         <td>
           <Question>{{questionText}}</Question>
@@ -27,7 +27,7 @@
 <script>
 import AnswersCircle from "./AnswersCircle";
 import Question from "./Question";
-
+import MediNinja from "./MediNinja";
 export default {
   name: "MeditaionZone",
   props: ["AllQuestions", "questionNumber"],
@@ -48,7 +48,7 @@ export default {
       correctAnimation: false
     };
   },
-  components: { AnswersCircle, Question },
+  components: { AnswersCircle, Question, MediNinja },
   computed: {
     questionText: function() {
       return this.AllQuestions.questions[this.questionNumber].text;
@@ -89,7 +89,7 @@ export default {
         this.correctAnimation = false;
         this.answers = [...this.calcAnswer];
         console.log(this.answers, this.calcAnswer);
-      }, 2000);
+      }, 4000);
     },
     wrongAnswer(id) {
       this.removeFromCircle(id);
