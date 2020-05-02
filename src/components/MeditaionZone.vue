@@ -68,7 +68,9 @@ export default {
   mounted() {
     document.addEventListener("keydown", event => {
       if (event.keyCode === 32) {
-        this.rightAnswer(1);
+        this.rightAnswer(
+          this.AllQuestions.questions[this.questionNumber].solution
+        );
       }
       // for Testing purpuses
     });
@@ -80,7 +82,6 @@ export default {
     },
     pressAnswer(payload) {
       this.checkIgCorrect(payload);
-      // this.removeFromCircle(payload.event, payload.id);
     },
     checkIgCorrect(payload) {
       const isCorrect =
@@ -90,13 +91,15 @@ export default {
       isCorrect ? this.rightAnswer(payload.id) : this.wrongAnswer(payload.id);
     },
     rightAnswer(id) {
-      this.answers = [];
+      // this.answers = [...this.answers].filter(a => +a.id === +id);
       this.$emit("nextQuestion", { id });
-      this.correctAnimation = true;
+      this.correctAnimation = id;
+      setTimeout(() => {
+        this.answers = [];
+      }, 2000);
       setTimeout(() => {
         this.correctAnimation = false;
         this.answers = [...this.calcAnswer];
-        console.log(this.answers, this.calcAnswer);
       }, 3000);
     },
     wrongAnswer(id) {
@@ -104,7 +107,6 @@ export default {
     },
     removeFromCircle(id) {
       const newAnswers = this.answers.filter(a => +a.id !== +id);
-      console.log("removeFromCircle", newAnswers);
       this.answers = [...newAnswers];
     },
     toggleSpin() {
@@ -126,7 +128,7 @@ export default {
   z-index: 20;
 }
 .mediNinja {
-  display: inline;
+  // display: inline;
   position: relative;
   height: 150px;
   bottom: -160px;

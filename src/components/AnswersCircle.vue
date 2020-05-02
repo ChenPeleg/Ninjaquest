@@ -9,7 +9,11 @@
         :data-ansnum="ans.id"
         @click="pressAnswer($event, ans.id )"
       >
-        <img :src="ans.image" :data-ansnum="ans.id" />
+        <img
+          :src="ans.image"
+          :data-ansnum="ans.id"
+          :class="{correctAnimationRemainig : correctAnimation && +correctAnimation !== +ans.id, correctAnimationCorrect : correctAnimation && +correctAnimation === +ans.id}"
+        />
       </li>
     </ul>
     <LetterInCircle :isbright="correctAnimation" />
@@ -40,7 +44,6 @@ export default {
     }, 100);
   },
   updated() {
-    console.log("upadating Answer circle");
     if (this.correctAnimation) {
       this.animateCorrect();
     }
@@ -128,7 +131,7 @@ export default {
   --sizeOfans: 90px;
   //  calc(var(--sizeOfwheel) / (var(--numberOfAnswers) / 3.4));
   // position: relative;
-  display: inline;
+  // display: inline;
   left: 70px;
   padding: 0px;
   width: var(--sizeOfwheel);
@@ -174,12 +177,33 @@ export default {
     4px 4px 8px 5px rgba(100, 100, 100, 0.7),
     -1px 0px 1px 1px rgba(229, 255, 0, 0.404);
 }
-.itembg {
-  // background: radial-gradient(
-  //   circle,
-  //   rgba(242, 255, 0, 0.767) 0%,
-  //   rgba(242, 255, 0, 0.096) 50%,
-  //   rgba(255, 251, 0, 0) 100%
-  // );
+.correctAnimationRemainig {
+  animation: fading 1s forwards;
+}
+@keyframes fading {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.correctAnimationCorrect {
+  animation: fadingAndGlowing 2s forwards;
+}
+@keyframes fadingAndGlowing {
+  0% {
+    opacity: 1;
+    filter: drop-shadow(0px 0px 3px rgba(30, 255, 0, 0.835))
+      drop-shadow(0px 0px 2px rgb(255, 255, 0)) brightness(1);
+  }
+  80% {
+    opacity: 1;
+    filter: drop-shadow(0px 0px 4px rgb(51, 255, 0))
+      drop-shadow(0px 0px 5px rgb(255, 255, 0)) brightness(1);
+  }
+  100% {
+    opacity: 0;
+  }
 }
 </style>
