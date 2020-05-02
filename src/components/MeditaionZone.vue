@@ -65,6 +65,14 @@ export default {
       });
     }
   },
+  mounted() {
+    document.addEventListener("keydown", event => {
+      if (event.keyCode === 32) {
+        this.rightAnswer(1);
+      }
+      // for Testing purpuses
+    });
+  },
 
   methods: {
     addToCircle() {
@@ -89,7 +97,7 @@ export default {
         this.correctAnimation = false;
         this.answers = [...this.calcAnswer];
         console.log(this.answers, this.calcAnswer);
-      }, 4000);
+      }, 3000);
     },
     wrongAnswer(id) {
       this.removeFromCircle(id);

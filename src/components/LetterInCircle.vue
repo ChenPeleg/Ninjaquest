@@ -41,7 +41,7 @@ export default {
   font-weight: 300;
   font-size: 120px;
   position: absolute;
-  transition: opacity ease-in-out 1s;
+  transition: opacity ease-in 1s;
   top: 17%;
   text-align: center;
   z-index: -1;
