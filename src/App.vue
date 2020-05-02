@@ -1,17 +1,20 @@
 <template>
   <div id="app">
     <GameHeader text="Ninja Quest" :size="sizeOfHeader" />
+
     <MeditationZone
-      v-if="AllQuestions"
+      v-if="AllQuestions && zone === 'medi'"
       :AllQuestions="AllQuestions"
       :questionNumber="questionNumber"
       @nextQuestion="questionNumber++"
     />
-    <paintingBackGround />
+    <BattleZone v-if="zone==='battle'" />
+    <paintingBackGround :zone="zone" />
   </div>
 </template>
 
 <script>
+import BattleZone from "./components/BattleZone";
 import axios from "axios";
 import GameHeader from "./components/GameHeader.vue";
 import paintingBackGround from "./components/PaintedBackGround";
@@ -21,10 +24,12 @@ export default {
   components: {
     GameHeader,
     paintingBackGround,
-    MeditationZone
+    MeditationZone,
+    BattleZone
   },
   data: () => {
     return {
+      zone: "battle",
       sizeOfHeader: 50,
       AllQuestions: false,
       questionNumber: 1

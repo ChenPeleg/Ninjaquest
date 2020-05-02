@@ -1,12 +1,24 @@
 <template>
   <div class="img_container staticFocus">
-    <img class="background_img" src="../assets/images/bgninjafin128.svg" alt="forest" />
+    <img
+      v-if="zone=== 'medi'"
+      class="background_img"
+      src="../assets/images/bgninjafin128.svg"
+      alt="forest"
+    />
+    <img
+      v-if="zone=== 'battle'"
+      class="background_battle"
+      src="../assets/images/cave.svg"
+      alt="cave"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  name: "PaintedBackGround"
+  name: "PaintedBackGround",
+  props: ["zone"]
 };
 </script>
 
@@ -19,6 +31,10 @@ export default {
 .background_img {
   position: relative;
   height: 100%;
+}
+.background_battle {
+  position: relative;
+  height: 160%;
 }
 .float {
   animation: bgFloats 10s ease-in-out infinite;
