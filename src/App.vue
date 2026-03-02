@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import BattleZone from "./components/BattleZone";
+import BattleZone from "./components/BattleZone.vue";
 import axios from "axios";
 import GameHeader from "./components/GameHeader.vue";
-import paintingBackGround from "./components/PaintedBackGround";
-import MeditationZone from "./components/MeditaionZone";
+import paintingBackGround from "./components/PaintedBackGround.vue";
+import MeditationZone from "./components/MeditaionZone.vue";
 export default {
   name: "App",
   components: {

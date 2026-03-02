@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import AnswersCircle from "./AnswersCircle";
-import Question from "./Question";
-import MediNinja from "./MediNinja";
+import AnswersCircle from "./AnswersCircle.vue";
+import Question from "./Question.vue";
+import MediNinja from "./MediNinja.vue";
 export default {
   name: "MeditaionZone",
   props: ["AllQuestions", "questionNumber"],
