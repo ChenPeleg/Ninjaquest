@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "name": "English Animals",
+    "id": "abc123",
+    "baseUrl": "ans/"
+  },
+  "questions": {
+    "1": {
+      "type": "info",
+      "text": "It is man's best friend. It likes to eat meat and bones.",
+      "answers": [
+        "dog.svg",
+        "lion.svg",
+        "monkey.svg",
+        "chick.svg",
+        "tiger.svg"
+      ],
+      "solution": "1"
+    },
+    "2": {
+      "text": "Lives in a farm. Has a lot of milk.",
+      "answers": [
+        "frog.svg",
+        "monkey.svg",
+        "cat.svg",
+        "cow.svg",
+        "panda.svg"
+      ],
+      "solution": "4"
+    },
+    "3": {
+      "text": "I live on trees and I like to eat bannanas. Who am I?",
+      "answers": [
+        "lion2.svg",
+        "rabbit.svg",
+        "monkey.svg",
+        "panda.svg",
+        "dog.svg"
+      ],
+      "solution": "3"
+    },
+    "4": {
+      "text": "I walk very slow. I carry my house on my back. Who am I?",
+      "answers": [
+        "frog.svg",
+        "turtle.svg",
+        "chick.svg",
+        "flamingo.svg",
+        "girafe.svg"
+      ],
+      "solution": "2"
+    },
+    "5": {
+      "text": "I know how to fly but I'm not a bird. I'm very pretty but very gentle. I am...",
+      "answers": [
+        "chick.svg",
+        "crab.svg",
+        "butterfly.svg",
+        "girafe.svg",
+        "flamingo.svg"
+      ],
+      "solution": "3"
+    },
+    "6": {
+      "text": "I'm big, and you can say I'm King of the animals. I am...",
+      "answers": [
+        "dog.svg",
+        "lion.svg",
+        "chick.svg",
+        "monkey.svg",
+        "rabbit.svg"
+      ],
+      "solution": "2"
+    },
+    "7": {
+      "text": "I can run very fast. I have two long ears.",
+      "answers": [
+        "frog.svg",
+        "crab.svg",
+        "panda.svg",
+        "cat.svg",
+        "rabbit.svg"
+      ],
+      "solution": "5"
+    },
+    "8": {
+      "text": "I live in the water, I have more than 5 legs.",
+      "answers": [
+        "crab.svg",
+        "dog.svg",
+        "turtle.svg",
+        "lion.svg",
+        "cow.svg"
+      ],
+      "solution": "1"
+    }
+  }
+}

@@ -22,7 +22,7 @@
 
 <script>
 import getCurrentRotationFixed from "../Utils/getAngle.js";
-import LetterInCircle from "./LetterInCircle";
+import LetterInCircle from "./LetterInCircle.vue";
 export default {
   name: "AnswersCircle",
   components: { LetterInCircle },
