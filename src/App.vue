@@ -15,7 +15,7 @@
 
 <script>
 import BattleZone from "./components/BattleZone.vue";
-import axios from "axios";
+import AllQuestionsData from "./allquestions.json";
 import GameHeader from "./components/GameHeader.vue";
 import paintingBackGround from "./components/PaintedBackGround.vue";
 import MeditationZone from "./components/MeditaionZone.vue";
@@ -31,15 +31,9 @@ export default {
     return {
       zone: "medi",
       sizeOfHeader: 50,
-      AllQuestions: false,
+      AllQuestions: AllQuestionsData,
       questionNumber: 1
     };
-  },
-  mounted: function() {
-    const url = "/allquestions.json";
-    axios.get(url, { crossdomain: true }).then(res => {
-      this.AllQuestions = res.data;
-    });
   }
 };
 </script>
