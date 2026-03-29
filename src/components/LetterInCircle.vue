@@ -8,7 +8,6 @@
 <script>
 export default {
   name: "LetterInCircle",
-  //components: {}
   props: ["isbright"],
   computed: {
     currentLetter: function() {
