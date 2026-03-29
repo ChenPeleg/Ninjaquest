@@ -1,24 +1,24 @@
 <template>
   <div id="meditaionzone">
 
-    <table>
-      <tr>
-        <td>
+    <div>
+      <div>
+        <div>
           <AnswersCircle
             :answers="answers"
             :ispaused="ispaused"
             :correctAnimation="correctAnimation"
             @pressAnswer="pressAnswer"
           />
-        </td>
-        <td>
+        </div>
+        <div>
           <MediNinja :correctAnimation="correctAnimation" />
-        </td>
-        <td>
+        </div>
+        <div>
           <Question>{{questionText}}</Question>
-        </td>
-      </tr>
-    </table>
+        </div>
+      </div>
+    </div>
 
     <button class="addBtn" v-on:click="addToCircle">Add 1</button>
     <button class="addBtn" v-on:click="toggleSpin">stop/ play</button>
