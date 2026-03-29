@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .medininja {
   display: inline;
   position: relative;
@@ -25,9 +25,9 @@ export default {
   border-radius: 20px 20px;
   transition: filter linear 2s;
   background: rgba(241, 255, 0, 0.2);
-  // filter: drop-shadow(16px -16px 3px rgba(255, 255, 0, 0))
-  //   drop-shadow(-16px -16px 3px rgba(255, 255, 0, 0)) brightness(1)
-  //   hue-rotate(0deg);
+  /* filter: drop-shadow(16px -16px 3px rgba(255, 255, 0, 0))
+     drop-shadow(-16px -16px 3px rgba(255, 255, 0, 0)) brightness(1)
+     hue-rotate(0deg); */
 }
 
 .medininjaGlow {

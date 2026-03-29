@@ -22,7 +22,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .img_container {
   position: absolute;
   top: 0%;

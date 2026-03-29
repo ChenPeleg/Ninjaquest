@@ -120,7 +120,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 #meditaionzone {
   position: relative;
   width: 98%;
@@ -133,7 +133,6 @@ export default {
   }
 }
 .mediNinja {
-  // display: inline;
   position: relative;
   height: 150px;
   bottom: -160px;

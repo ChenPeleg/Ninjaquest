@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 @font-face {
   font-family: "Julee";
   src: url("../assets/fonts/Julee-Regular.ttf");

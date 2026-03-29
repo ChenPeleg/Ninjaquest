@@ -121,7 +121,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 #answerscircle {
   position: relative;
   padding: 0px;
@@ -132,9 +132,6 @@ export default {
   --spinduration: 12s;
   --numberOfAnswers: 7;
   --sizeOfans: 90px;
-  //  calc(var(--sizeOfwheel) / (var(--numberOfAnswers) / 3.4));
-  // position: relative;
-  // display: inline;
   left: 70px;
   padding: 0px;
   width: var(--sizeOfwheel);

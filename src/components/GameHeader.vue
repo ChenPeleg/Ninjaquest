@@ -11,12 +11,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-$color1: rgb(110, 110, 233);
-$color2: rgb(46, 46, 112);
-$color3: rgb(15, 65, 71);
-$border: 12px;
-
+<style scoped>
 @font-face {
   font-family: "Julee";
   src: url("../assets/fonts/Julee-Regular.ttf");
@@ -28,7 +23,7 @@ $border: 12px;
   width: auto;
   font-weight: bold;
   font-size: 100px;
-  color: $color2;
+  color: rgb(46, 46, 112);
   text-shadow: 1px 1px rgb(151, 88, 82), 2px 2px rgba(126, 52, 126, 0.836),
     3px 3px rgba(122, 94, 245, 0.836), 4px 4px rgba(110, 18, 95, 0.836),
     5px 5px rgba(205, 245, 94, 0.836), 8px 8px 8px rgba(18, 19, 17, 0.836);

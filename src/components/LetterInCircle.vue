@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 @font-face {
   font-family: "MaShanZheng";
   src: url("../assets/fonts/MaShanZheng-Regular.ttf");
