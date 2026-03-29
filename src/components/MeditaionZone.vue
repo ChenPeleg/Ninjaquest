@@ -1,7 +1,7 @@
 <template>
   <div id="meditaionzone">
 
-    <div>
+    <div >
       <div>
         <div>
           <AnswersCircle
