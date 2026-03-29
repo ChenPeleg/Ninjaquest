@@ -27,7 +27,9 @@ import getCurrentRotationFixed from "../Utils/getAngle.js";
 import LetterInCircle from "./LetterInCircle.vue";
 
 export default {
-  name: "AnswersCircle", components: {LetterInCircle}, props: ["answers", "ispaused", "correctAnimation"], data() {
+  name: "AnswersCircle",
+  components: {LetterInCircle},
+  props: ["answers", "ispaused", "correctAnimation"], data() {
     return {
       oldAnswers: [...this.answers], spinDuration: 24, //12
       sizeOfwheel: 340
