@@ -29,7 +29,7 @@ export default {
   },
   data: () => {
     return {
-      zone: "battle",
+      zone: "medi",
       sizeOfHeader: 50,
       AllQuestions: false,
       questionNumber: 1

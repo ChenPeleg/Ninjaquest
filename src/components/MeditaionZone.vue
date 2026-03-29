@@ -1,5 +1,6 @@
 <template>
   <div id="meditaionzone">
+
     <table>
       <tr>
         <td>
