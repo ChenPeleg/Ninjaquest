@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="absolute h-full w-full m-0 p-0 overflow-hidden text-[#2c3e50] [font-family:Avenir,Helvetica,Arial,sans-serif] [background:linear-gradient(to_bottom,#b7eaff_0%,#5395b1_30%,#94dfff_100%)]">
     <GameHeader text="Ninja Quest" :size="sizeOfHeader" />
 
     <MeditationZone
@@ -44,17 +44,3 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: #2c3e50;
-  margin: 0px;
-  padding: 0px;
-  overflow: hidden;
-
-  background: linear-gradient(to bottom, #b7eaff 0%, #5395b1 30%, #94dfff 100%);
-}
-</style>

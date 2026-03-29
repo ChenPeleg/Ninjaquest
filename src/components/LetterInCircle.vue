@@ -1,5 +1,8 @@
 <template>
-  <div class="letterincircle letterFade" :class="{bright: isbright}">{{currentLetter}}</div>
+  <div
+    class="letterFade opacity-10 font-light text-[120px] absolute transition-opacity ease-in duration-1000 top-[17%] text-center [z-index:-1] [font-family:MaShanZheng]"
+    :class="{'opacity-100': isbright}"
+  >{{currentLetter}}</div>
 </template>
 
 <script>
@@ -29,28 +32,13 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 @font-face {
   font-family: "MaShanZheng";
   src: url("../assets/fonts/MaShanZheng-Regular.ttf");
 }
-
-.letterincircle {
-  opacity: 0.1;
-  font-family: "MaShanZheng";
-  font-weight: 300;
-  font-size: 120px;
-  position: absolute;
-  transition: opacity ease-in 1s;
-  top: 17%;
-  text-align: center;
-  z-index: -1;
-}
 .letterFade {
   animation: letterFade 10s infinite;
-}
-.bright {
-  opacity: 1;
 }
 @keyframes letterFade {
   0% {
