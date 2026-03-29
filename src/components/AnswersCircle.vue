@@ -92,6 +92,9 @@ export default {
         step = (2 * Math.PI) / fields.length;
 
       fields.forEach(a => {
+        if (!a || !a.style) {
+          return;
+        }
         var x = Math.round(
           width / 2 + radius * Math.cos(angle) - a.offsetWidth / 2
         );
