@@ -1,5 +1,5 @@
 <template>
-  <div class="question align-top relative top-5 m-0 inline-block h-[400px] w-[600px]">
+  <div class="question align-top relative top-5 m-0 inline-block h-100 lg:w-150 w-screen">
     <div class="question-text font-bold p-[90px] absolute text-[37px]">
       <slot />
     </div>
