@@ -1,27 +1,33 @@
 <template>
   <div id="meditaionzone" class="relative w-[98%] pl-[90px] max-sm:pl-px text-left z-20">
 
-    <div >
+    <div class="  flex flex-row flex-wrap gap-6">
+
       <div>
-        <div>
-          <AnswersCircle
+        <AnswersCircle
             :answers="answers"
             :ispaused="ispaused"
             :correctAnimation="correctAnimation"
             @pressAnswer="pressAnswer"
-          />
-        </div>
-        <div>
-          <MediNinja :correctAnimation="correctAnimation" />
-        </div>
-        <div>
-          <Question>{{questionText}}</Question>
-        </div>
+        />
       </div>
+      <div class="  max-w-44  flex flex-col justify-center">
+        <MediNinja :correctAnimation="correctAnimation"/>
+      </div>
+      <div>
+        <Question>{{ questionText }}</Question>
+      </div>
+
     </div>
 
-    <button class="p-[10px] relative right-0 m-[10px] bg-[burlywood] border-0 rounded hover:shadow-[2px_2px_4px_2px_rgba(15,15,15,0.5)]" v-on:click="addToCircle">Add 1</button>
-    <button class="p-[10px] relative right-0 m-[10px] bg-[burlywood] border-0 rounded hover:shadow-[2px_2px_4px_2px_rgba(15,15,15,0.5)]" v-on:click="toggleSpin">stop/ play</button>
+    <button
+        class="p-[10px] relative right-0 m-[10px] bg-[burlywood] border-0 rounded hover:shadow-[2px_2px_4px_2px_rgba(15,15,15,0.5)]"
+        v-on:click="addToCircle">Add 1
+    </button>
+    <button
+        class="p-[10px] relative right-0 m-[10px] bg-[burlywood] border-0 rounded hover:shadow-[2px_2px_4px_2px_rgba(15,15,15,0.5)]"
+        v-on:click="toggleSpin">stop/ play
+    </button>
   </div>
 </template>
 
@@ -29,49 +35,32 @@
 import AnswersCircle from "./AnswersCircle.vue";
 import Question from "./Question.vue";
 import MediNinja from "./MediNinja.vue";
+
 export default {
-  name: "MeditaionZone",
-  props: ["AllQuestions", "questionNumber"],
-  data() {
+  name: "MeditaionZone", props: ["AllQuestions", "questionNumber"], data() {
     return {
-      answers: this.AllQuestions.questions[this.questionNumber].answers.map(
-        o => {
-          return {
-            id:
-              this.AllQuestions.questions[this.questionNumber].answers.indexOf(
-                o
-              ) + 1,
-            image: this.AllQuestions.meta.baseUrl + o
-          };
-        }
-      ),
-      ispaused: false,
-      correctAnimation: false
+      answers: this.AllQuestions.questions[this.questionNumber].answers.map(o => {
+        return {
+          id: this.AllQuestions.questions[this.questionNumber].answers.indexOf(o) + 1,
+          image: this.AllQuestions.meta.baseUrl + o
+        };
+      }), ispaused: false, correctAnimation: false
     };
-  },
-  components: { AnswersCircle, Question, MediNinja },
-  computed: {
-    questionText: function() {
+  }, components: {AnswersCircle, Question, MediNinja}, computed: {
+    questionText: function () {
       return this.AllQuestions.questions[this.questionNumber].text;
-    },
-    calcAnswer: function() {
+    }, calcAnswer: function () {
       return this.AllQuestions.questions[this.questionNumber].answers.map(o => {
         return {
-          id:
-            this.AllQuestions.questions[this.questionNumber].answers.indexOf(
-              o
-            ) + 1,
+          id: this.AllQuestions.questions[this.questionNumber].answers.indexOf(o) + 1,
           image: this.AllQuestions.meta.baseUrl + o
         };
       });
     }
-  },
-  mounted() {
+  }, mounted() {
     document.addEventListener("keydown", event => {
       if (event.keyCode === 32) {
-        this.rightAnswer(
-          this.AllQuestions.questions[this.questionNumber].solution
-        );
+        this.rightAnswer(this.AllQuestions.questions[this.questionNumber].solution);
       }
       // for Testing purpuses
     });
@@ -79,21 +68,16 @@ export default {
 
   methods: {
     addToCircle() {
-      return;
-    },
-    pressAnswer(payload) {
+
+    }, pressAnswer(payload) {
       this.checkIgCorrect(payload);
-    },
-    checkIgCorrect(payload) {
-      const isCorrect =
-        +this.AllQuestions.questions[this.questionNumber].solution ===
-        +payload.id;
+    }, checkIgCorrect(payload) {
+      const isCorrect = +this.AllQuestions.questions[this.questionNumber].solution === +payload.id;
 
       isCorrect ? this.rightAnswer(payload.id) : this.wrongAnswer(payload.id);
-    },
-    rightAnswer(id) {
+    }, rightAnswer(id) {
       // this.answers = [...this.answers].filter(a => +a.id === +id);
-      this.$emit("nextQuestion", { id });
+      this.$emit("nextQuestion", {id});
       this.correctAnimation = id;
       setTimeout(() => {
         this.answers = [];
@@ -102,15 +86,12 @@ export default {
         this.correctAnimation = false;
         this.answers = [...this.calcAnswer];
       }, 3000);
-    },
-    wrongAnswer(id) {
+    }, wrongAnswer(id) {
       this.removeFromCircle(id);
-    },
-    removeFromCircle(id) {
+    }, removeFromCircle(id) {
       const newAnswers = this.answers.filter(a => +a.id !== +id);
       this.answers = [...newAnswers];
-    },
-    toggleSpin() {
+    }, toggleSpin() {
       this.ispaused = !this.ispaused;
     }
   }
