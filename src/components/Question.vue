@@ -1,10 +1,9 @@
 <template>
-  <div class="question">
-    <div class="question-text">
+  <div class="question align-top relative top-5 m-0 inline-block h-[400px] w-[600px]">
+    <div class="question-text font-bold p-[90px] absolute text-[37px]">
       <slot />
     </div>
-
-    <img class="scroll" src="../assets/images/scroll.svg" />
+    <img class="align-top w-full h-full" src="../assets/images/scroll.svg" />
   </div>
 </template>
 
@@ -21,25 +20,7 @@ export default {
   font-family: "Julee";
   src: url("../assets/fonts/Julee-Regular.ttf");
 }
-.question {
-  vertical-align: top;
-  position: relative;
-  top: 20px;
-  margin: 0px;
-  display: inline-block;
-  height: 400px;
-  width: 600px;
-}
 .question-text {
   font-family: "Julee";
-  font-weight: bold;
-  padding: 90px;
-  position: absolute;
-  font-size: 37px;
-}
-.scroll {
-  vertical-align: top;
-  width: 100%;
-  height: 100%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="meditaionzone">
+  <div id="meditaionzone" class="relative w-[98%] pl-[90px] max-sm:pl-px text-left z-20">
 
     <div >
       <div>
@@ -20,8 +20,8 @@
       </div>
     </div>
 
-    <button class="addBtn" v-on:click="addToCircle">Add 1</button>
-    <button class="addBtn" v-on:click="toggleSpin">stop/ play</button>
+    <button class="p-[10px] relative right-0 m-[10px] bg-[burlywood] border-0 rounded hover:shadow-[2px_2px_4px_2px_rgba(15,15,15,0.5)]" v-on:click="addToCircle">Add 1</button>
+    <button class="p-[10px] relative right-0 m-[10px] bg-[burlywood] border-0 rounded hover:shadow-[2px_2px_4px_2px_rgba(15,15,15,0.5)]" v-on:click="toggleSpin">stop/ play</button>
   </div>
 </template>
 
@@ -119,41 +119,3 @@ export default {
   //props: {}
 };
 </script>
-
-<style scoped>
-#meditaionzone {
-  position: relative;
-  width: 98%;
-  padding-left: 90px;
-  text-align: left;
-  z-index: 20;
-  @media screen and (max-width: 640px) {
-    padding-left: 1px;
-
-  }
-}
-.mediNinja {
-  position: relative;
-  height: 150px;
-  bottom: -160px;
-  margin: 0px;
-}
-
-.addBtn {
-  padding: 10px;
-  position: relative;
-
-  right: 0px;
-  margin: 10px;
-  background-color: burlywood;
-  border: 0px;
-  border-radius: 4px;
-}
-.addBtn:hover {
-  box-shadow: 2px 2px 4px 2px rgba(15, 15, 15, 0.5);
-}
-
-/* new try */
-</style>
-
-

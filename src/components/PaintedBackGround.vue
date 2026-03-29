@@ -1,14 +1,14 @@
 <template>
-  <div class="img_container staticFocus">
+  <div class="staticFocus absolute top-0 h-full">
     <img
       v-if="zone=== 'medi'"
-      class="background_img"
+      class="relative h-full"
       src="../assets/images/bgninjafin128.svg"
       alt="forest"
     />
     <img
       v-if="zone=== 'battle'"
-      class="background_battle"
+      class="relative h-[160%]"
       src="../assets/images/cave.svg"
       alt="cave"
     />
@@ -23,19 +23,6 @@ export default {
 </script>
 
 <style scoped>
-.img_container {
-  position: absolute;
-  top: 0%;
-  height: 100%;
-}
-.background_img {
-  position: relative;
-  height: 100%;
-}
-.background_battle {
-  position: relative;
-  height: 160%;
-}
 .float {
   animation: bgFloats 10s ease-in-out infinite;
 }

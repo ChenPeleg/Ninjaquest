@@ -1,8 +1,10 @@
 <template>
-  <div id="answerscircle">
-    <ul id="listOfAnswers" ref="ansRef" class="spin shadow" :class="{pause : ispaused}">
+  <div id="answerscircle" class="relative p-0 m-0">
+    <ul id="listOfAnswers" ref="ansRef"
+      class="spin shadow left-[70px] p-0 w-[var(--sizeOfwheel)] h-[var(--sizeOfwheel)] my-[10px] mx-auto border-4 border-[rgba(73,70,70,0.301)] inline-block rounded-full list-none"
+      :class="{pause : ispaused}">
       <li
-        class="item trasition"
+        class="item trasition w-[var(--sizeOfans)] h-[var(--sizeOfans)] text-center rounded-full absolute"
         :class="{pause : ispaused}"
         v-for="(ans, index) in answers"
         :key="index"
@@ -122,32 +124,13 @@ export default {
 </script>
 
 <style scoped>
-#answerscircle {
-  position: relative;
-  padding: 0px;
-  margin: 0px;
-}
 #listOfAnswers {
   --sizeOfwheel: 340px;
   --spinduration: 12s;
   --numberOfAnswers: 7;
   --sizeOfans: 90px;
-  left: 70px;
-  padding: 0px;
-  width: var(--sizeOfwheel);
-  height: var(--sizeOfwheel);
-  margin: 10px auto;
-  border: 4px solid rgba(73, 70, 70, 0.301);
-  display: inline-block;
-  border-radius: 50%;
-  list-style-type: none;
 }
 .item {
-  width: var(--sizeOfans);
-  height: var(--sizeOfans);
-  text-align: center;
-  border-radius: 50%;
-  position: absolute;
   animation-name: inherit;
   animation-duration: inherit;
   animation-iteration-count: inherit;
