@@ -35,6 +35,10 @@ export default {
       sizeOfwheel: 340
     };
   }, mounted() {
+
+    if (window.innerWidth < 768) {
+      this.sizeOfwheel = 250;
+    }
     setTimeout(() => {
       const list = this.$refs.ansRef;
       list.style.setProperty("--spinduration", `${this.spinDuration}s`);
