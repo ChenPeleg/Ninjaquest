@@ -2,7 +2,7 @@
   <div class="staticFocus absolute top-0 h-full">
     <img
       v-if="zone=== 'medi'"
-      class="relative h-full"
+      class="relative h-full object-cover"
       src="../assets/images/bgninjafin128.svg"
       alt="forest"
     />
@@ -53,6 +53,6 @@ export default {
   }
 }
 .staticFocus {
-  transform: scale(1.4, 1.4) translateX(11%) translateY(-2%);
+  //transform: scale(1.4, 1.4) translateX(11%) translateY(-2%);
 }
 </style>
