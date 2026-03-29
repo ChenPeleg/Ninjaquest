@@ -13,13 +13,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import BattleZone from "./components/BattleZone.vue";
 import AllQuestionsData from "./allquestions.json";
 import GameHeader from "./components/GameHeader.vue";
 import paintingBackGround from "./components/PaintedBackGround.vue";
 import MeditationZone from "./components/MeditaionZone.vue";
-export default {
+
+export default defineComponent({
   name: "App",
   components: {
     GameHeader,
@@ -27,14 +29,14 @@ export default {
     MeditationZone,
     BattleZone
   },
-  data: () => {
+  data() {
     return {
-      zone: "medi",
-      sizeOfHeader: 50,
+      zone: "medi" as string,
+      sizeOfHeader: 50 as number,
       AllQuestions: AllQuestionsData,
-      questionNumber: 1
+      questionNumber: 1 as number
     };
   }
-};
+});
 </script>
 

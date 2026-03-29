@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "serve": "vite",
-    "build": "vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "lint": "eslint src --ext .js,.vue",
+    "lint": "eslint src --ext .js,.ts,.vue",
+    "type-check": "vue-tsc --noEmit",
     "start": "vite --open"
   },
   "dependencies": {
@@ -15,10 +16,16 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.9.1",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.32.0",
-    "vite": "^6.1.1"
+    "typescript": "^6.0.2",
+    "vite": "^6.1.1",
+    "vue-tsc": "^3.2.6"
   },
   "eslintConfig": {
     "root": true,
@@ -28,15 +35,29 @@
     },
     "extends": [
       "plugin:vue/vue3-essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
       "ecmaVersion": 2022,
-      "sourceType": "module"
+      "sourceType": "module",
+      "parser": "@typescript-eslint/parser"
     },
+    "plugins": ["@typescript-eslint"],
     "rules": {
-      "vue/multi-word-component-names": "off"
-    }
+      "vue/multi-word-component-names": "off",
+      "@typescript-eslint/no-explicit-any": "warn"
+    },
+    "overrides": [
+      {
+        "files": ["*.vue"],
+        "parser": "vue-eslint-parser",
+        "parserOptions": {
+          "parser": "@typescript-eslint/parser"
+        }
+      }
+    ]
   },
   "browserslist": [
     "> 1%",

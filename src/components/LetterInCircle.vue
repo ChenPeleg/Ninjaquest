@@ -5,12 +5,19 @@
   >{{currentLetter}}</div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: "LetterInCircle",
-  props: ["isbright"],
+  props: {
+    isbright: {
+      type: [Boolean, Number],
+      required: true
+    }
+  },
   computed: {
-    currentLetter: function() {
+    currentLetter(): string {
       const l = this.letters.length - 4;
       const num = Math.abs(Math.floor(Math.random() * l));
 
@@ -19,7 +26,7 @@ export default {
       );
     }
   },
-  data: () => {
+  data() {
     return {
       letters:
         "春夏秋冬东南西星黑白红橙黄绿蓝靛紫食住衣行育乐忠孝仁爱信义和平子曰父母兄弟夫妇君臣马牛羊鸡犬豕喜怒哀惧恶手足见闻声贝车雨赤青言语鱼鸟羽电以何俱伦仪先光入具初则匏协去友同名善器严执孟孙学宜容专师席常幼序从性恩恭情惰应成所才扬择教敬数文断方于族昔时智曾有朋本杼某梨机次欲此岁温为燕玄玉琢畜当相知石祖礼稷稻谷穷窦竹粱紊丝纲习老者而能自至与苟菽处融亲调识让贵身近运过道远迁邻长非革音顺饲养首香高麦黍龄思源谷歌",
@@ -27,7 +34,7 @@ export default {
         "目耳口二三四五六七八九十百千万上中下左右大小少山不乃之乎人北金木水火土天地日月"
     };
   }
-};
+});
 </script>
 
 <style scoped>

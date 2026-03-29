@@ -15,11 +15,18 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: "PaintedBackGround",
-  props: ["zone"]
-};
+  props: {
+    zone: {
+      type: String,
+      required: true
+    }
+  }
+});
 </script>
 
 <style scoped>

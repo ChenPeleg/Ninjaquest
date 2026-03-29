@@ -2,14 +2,16 @@
   <div :style="{fontSize: size + 'px'}" class="mainHeaderText relative p-[10px] font-bold text-[100px] text-[rgb(46,46,112)] z-[100]">{{text}}</div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: "GameHeader",
   props: {
     text: String,
     size: Number
   }
-};
+});
 </script>
 <style scoped>
 @font-face {
