@@ -1,6 +1,6 @@
 <template>
   <div
-    class="letterFade opacity-10 font-light text-[120px] absolute transition-opacity ease-in duration-1000 top-[17%] text-center [z-index:-1] [font-family:MaShanZheng]"
+    class="letterFade opacity-10 font-light lg:text-[120px] text-[80px] absolute transition-opacity ease-in duration-1000 lg:top-[17%] top-[8%] text-center z-[-1] [font-family:MaShanZheng]"
     :class="{'opacity-100': isbright}"
   >{{currentLetter}}</div>
 </template>
@@ -15,7 +15,6 @@ export default {
       const l = this.letters.length - 4;
       const num = Math.abs(Math.floor(Math.random() * l));
 
-      // return "春夏\n秋冬";
       return (
         this.letters.substr(num, 2) + "\n" + this.letters.substr(num + 2, 2)
       );
