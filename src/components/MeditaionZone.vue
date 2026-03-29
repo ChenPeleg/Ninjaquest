@@ -127,6 +127,9 @@ export default {
   padding-left: 90px;
   text-align: left;
   z-index: 20;
+  @media screen and width ( 370px) {
+
+  }
 }
 .mediNinja {
   // display: inline;
