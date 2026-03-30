@@ -8,7 +8,11 @@
     "preview": "vite preview",
     "lint": "eslint src --ext .js,.ts,.vue",
     "type-check": "vue-tsc --noEmit",
-    "start": "vite --open"
+    "start": "vite --open",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
@@ -20,11 +24,16 @@
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vitest/ui": "^4.1.2",
+    "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.9.1",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.32.0",
+    "happy-dom": "^20.8.9",
+    "jsdom": "^29.0.1",
     "typescript": "^6.0.2",
     "vite": "^6.1.1",
+    "vitest": "^4.1.2",
     "vue-tsc": "^3.2.6"
   },
   "eslintConfig": {
@@ -44,14 +53,18 @@
       "sourceType": "module",
       "parser": "@typescript-eslint/parser"
     },
-    "plugins": ["@typescript-eslint"],
+    "plugins": [
+      "@typescript-eslint"
+    ],
     "rules": {
       "vue/multi-word-component-names": "off",
       "@typescript-eslint/no-explicit-any": "warn"
     },
     "overrides": [
       {
-        "files": ["*.vue"],
+        "files": [
+          "*.vue"
+        ],
         "parser": "vue-eslint-parser",
         "parserOptions": {
           "parser": "@typescript-eslint/parser"
