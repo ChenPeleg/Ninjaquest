@@ -7,12 +7,18 @@
   />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: "MediNinja",
-  //components: {},
-  props: ["correctAnimation"]
-};
+  props: {
+    correctAnimation: {
+      type: [Boolean, Number],
+      required: true
+    }
+  }
+});
 </script>
 
 <style scoped>

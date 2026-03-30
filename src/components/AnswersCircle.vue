@@ -22,37 +22,58 @@
   </div>
 </template>
 
-<script>
-import getCurrentRotationFixed from "../Utils/getAngle.js";
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+import getCurrentRotationFixed from "../Utils/getAngle";
 import LetterInCircle from "./LetterInCircle.vue";
 
-export default {
-  name: "AnswersCircle",
-  components: {LetterInCircle},
-  props: ["answers", "ispaused", "correctAnimation"], data() {
-    return {
-      oldAnswers: [...this.answers], spinDuration: 24, //12
-      sizeOfwheel: 340
-    };
-  }, mounted() {
+interface Answer {
+  id: number;
+  image: string;
+}
 
+export default defineComponent({
+  name: "AnswersCircle",
+  components: { LetterInCircle },
+  props: {
+    answers: {
+      type: Array as PropType<Answer[]>,
+      required: true
+    },
+    ispaused: {
+      type: Boolean,
+      required: true
+    },
+    correctAnimation: {
+      type: [Boolean, Number],
+      required: true
+    }
+  },
+  data() {
+    return {
+      oldAnswers: [...this.answers] as Answer[],
+      spinDuration: 24 as number,
+      sizeOfwheel: 340 as number
+    };
+  },
+  mounted() {
     if (window.innerWidth < 768) {
       this.sizeOfwheel = 250;
     }
     setTimeout(() => {
-      const list = this.$refs.ansRef;
+      const list = this.$refs.ansRef as HTMLElement;
       list.style.setProperty("--spinduration", `${this.spinDuration}s`);
       list.style.setProperty("--sizeOfwheel", `${this.sizeOfwheel}px`);
       this.updateLayout();
-      //setTimeout(() => this.updateLayout(), 300); // to get the radious good after the initial ordering
     }, 100);
-  }, updated() {
+  },
+  updated() {
     if (this.correctAnimation) {
       this.animateCorrect();
     }
     const newAnswers = [...this.answers]
-        .map(o => o.id)
-        .filter(a => !this.oldAnswers.map(o => o.id).includes(a));
+      .map(o => o.id)
+      .filter(a => !this.oldAnswers.map(o => o.id).includes(a));
 
     this.oldAnswers = [...this.answers];
     let updatedAns = 1000;
@@ -61,59 +82,62 @@ export default {
         updatedAns = 0;
         break;
       case 1:
-        updatedAns = newAnswers[0];
+        updatedAns = newAnswers[0] ?? 1000;
         break;
       default:
         updatedAns = 1000;
     }
 
     this.updateLayout(updatedAns);
-  }, methods: {
-    animateCorrect() {}, pressAnswer(event, id) {
-      this.$emit("pressAnswer", {event, id});
+  },
+  methods: {
+    animateCorrect() {},
+    pressAnswer(event: Event, id: number) {
+      this.$emit("pressAnswer", { event, id });
     },
 
-    updateLayout(updateNumber = 0) {
-      const calcItemSize = (widthOfContainer, numberOfItems) => widthOfContainer / 4.5 + (widthOfContainer * 0.2) /
-          numberOfItems + 5;
+    updateLayout(updateNumber: number = 0) {
+      const calcItemSize = (widthOfContainer: number, numberOfItems: number) =>
+        widthOfContainer / 4.5 + (widthOfContainer * 0.2) / numberOfItems + 5;
 
-      const container = this.$refs.ansRef;
+      const container = this.$refs.ansRef as HTMLElement;
 
       const fields = container.childNodes;
       const width = container.offsetWidth;
       const height = container.offsetHeight;
-      const angleOfContainer = getCurrentRotationFixed(this.$refs.ansRef);
-      var radius = Number(width) / 2;
+      const angleOfContainer = getCurrentRotationFixed(this.$refs.ansRef as HTMLElement);
+      const radius = Number(width) / 2;
       const animationDelay = `${(angleOfContainer / 360) * -this.spinDuration}s`;
       const itemSize = calcItemSize(width, fields.length);
       container.style.setProperty("--sizeOfans", itemSize + "px");
 
-      var angle = 0, step = (2 * Math.PI) / fields.length;
+      let angle = 0;
+      const step = (2 * Math.PI) / fields.length;
 
       fields.forEach(a => {
-        if (!a || !a.style) {
+        const element = a as HTMLElement;
+        if (!element || !element.style) {
           return;
         }
-        var x = Math.round(width / 2 + radius * Math.cos(angle) - a.offsetWidth / 2);
-        var y = Math.round(height / 2 + radius * Math.sin(angle) - a.offsetHeight / 2);
-        a.style.left = x + "px";
-        a.style.top = y + "px";
-        a.dataset.ansnum === "1";
+        const x = Math.round(width / 2 + radius * Math.cos(angle) - element.offsetWidth / 2);
+        const y = Math.round(height / 2 + radius * Math.sin(angle) - element.offsetHeight / 2);
+        element.style.left = x + "px";
+        element.style.top = y + "px";
 
-        if (updateNumber === +a.dataset.ansnum || updateNumber === 1000) {
-          a.style.animationDelay = animationDelay;
-          a.classList.remove("trasition");
-          a.style.opacity = "0.0";
+        if (updateNumber === +element.dataset.ansnum! || updateNumber === 1000) {
+          element.style.animationDelay = animationDelay;
+          element.classList.remove("trasition");
+          element.style.opacity = "0.0";
           setTimeout(() => {
-            a.classList.add("trasition");
-            a.style.opacity = "1";
+            element.classList.add("trasition");
+            element.style.opacity = "1";
           }, 300);
         }
         angle += step;
       });
     }
   }
-};
+});
 </script>
 
 <style scoped>

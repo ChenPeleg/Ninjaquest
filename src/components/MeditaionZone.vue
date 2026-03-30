@@ -32,53 +32,99 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
 import AnswersCircle from "./AnswersCircle.vue";
 import Question from "./Question.vue";
 import MediNinja from "./MediNinja.vue";
 
-export default {
-  name: "MeditaionZone", props: ["AllQuestions", "questionNumber"], data() {
+interface Answer {
+  id: number;
+  image: string;
+}
+
+interface QuestionData {
+  text: string;
+  answers: string[];
+  solution: string;
+  type?: string;
+}
+
+interface AllQuestionsData {
+  meta: {
+    name: string;
+    id: string;
+    baseUrl: string;
+  };
+  questions: {
+    [key: number]: QuestionData;
+  };
+}
+
+export default defineComponent({
+  name: "MeditaionZone",
+  components: { AnswersCircle, Question, MediNinja },
+  props: {
+    AllQuestions: {
+      type: Object as PropType<AllQuestionsData>,
+      required: true
+    },
+    questionNumber: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    const currentQuestion = this.AllQuestions.questions[this.questionNumber];
     return {
-      answers: this.AllQuestions.questions[this.questionNumber].answers.map(o => {
+      answers: (currentQuestion?.answers ?? []).map((o, index) => {
         return {
-          id: this.AllQuestions.questions[this.questionNumber].answers.indexOf(o) + 1,
+          id: index + 1,
           image: this.AllQuestions.meta.baseUrl + o
         };
-      }), ispaused: false, correctAnimation: false
+      }) as Answer[],
+      ispaused: false as boolean,
+      correctAnimation: false as boolean | number
     };
-  }, components: {AnswersCircle, Question, MediNinja}, computed: {
-    questionText: function () {
-      return this.AllQuestions.questions[this.questionNumber].text;
-    }, calcAnswer: function () {
-      return this.AllQuestions.questions[this.questionNumber].answers.map(o => {
+  },
+  computed: {
+    questionText(): string {
+      return this.AllQuestions.questions[this.questionNumber]?.text ?? '';
+    },
+    calcAnswer(): Answer[] {
+      const currentQuestion = this.AllQuestions.questions[this.questionNumber];
+      return (currentQuestion?.answers ?? []).map((o, index) => {
         return {
-          id: this.AllQuestions.questions[this.questionNumber].answers.indexOf(o) + 1,
+          id: index + 1,
           image: this.AllQuestions.meta.baseUrl + o
         };
       });
     }
-  }, mounted() {
-    document.addEventListener("keydown", event => {
+  },
+  mounted() {
+    document.addEventListener("keydown", (event: KeyboardEvent) => {
       if (event.keyCode === 32) {
-        this.rightAnswer(this.AllQuestions.questions[this.questionNumber].solution);
+        const solution = this.AllQuestions.questions[this.questionNumber]?.solution;
+        if (solution) {
+          this.rightAnswer(Number(solution));
+        }
       }
-      // for Testing purpuses
     });
   },
-
   methods: {
     addToCircle() {
-
-    }, pressAnswer(payload) {
+      // Empty method
+    },
+    pressAnswer(payload: { event: Event; id: number }) {
       this.checkIgCorrect(payload);
-    }, checkIgCorrect(payload) {
-      const isCorrect = +this.AllQuestions.questions[this.questionNumber].solution === +payload.id;
-
+    },
+    checkIgCorrect(payload: { event: Event; id: number }) {
+      const solution = this.AllQuestions.questions[this.questionNumber]?.solution;
+      const isCorrect = solution ? +solution === +payload.id : false;
       isCorrect ? this.rightAnswer(payload.id) : this.wrongAnswer(payload.id);
-    }, rightAnswer(id) {
-      // this.answers = [...this.answers].filter(a => +a.id === +id);
-      this.$emit("nextQuestion", {id});
+    },
+    rightAnswer(id: number) {
+      this.$emit("nextQuestion", { id });
       this.correctAnimation = id;
       setTimeout(() => {
         this.answers = [];
@@ -87,17 +133,17 @@ export default {
         this.correctAnimation = false;
         this.answers = [...this.calcAnswer];
       }, 3000);
-    }, wrongAnswer(id) {
+    },
+    wrongAnswer(id: number) {
       this.removeFromCircle(id);
-    }, removeFromCircle(id) {
+    },
+    removeFromCircle(id: number) {
       const newAnswers = this.answers.filter(a => +a.id !== +id);
       this.answers = [...newAnswers];
-    }, toggleSpin() {
+    },
+    toggleSpin() {
       this.ispaused = !this.ispaused;
     }
   }
-
-  //components: {}
-  //props: {}
-};
+});
 </script>
