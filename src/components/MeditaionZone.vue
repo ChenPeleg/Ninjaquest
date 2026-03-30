@@ -121,7 +121,11 @@ export default defineComponent({
     checkIgCorrect(payload: { event: Event; id: number }) {
       const solution = this.AllQuestions.questions[this.questionNumber]?.solution;
       const isCorrect = solution ? +solution === +payload.id : false;
-      isCorrect ? this.rightAnswer(payload.id) : this.wrongAnswer(payload.id);
+      if (isCorrect) {
+        this.rightAnswer(payload.id);
+      } else {
+        this.wrongAnswer(payload.id);
+      }
     },
     rightAnswer(id: number) {
       this.$emit("nextQuestion", { id });
