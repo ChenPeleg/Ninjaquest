@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
-import MeditaionZone from '../components/MeditaionZone.vue'
+import MeditaionZone from './MeditaionZone.vue'
 
 // Mock child components
 vi.mock('../components/AnswersCircle.vue', () => ({
