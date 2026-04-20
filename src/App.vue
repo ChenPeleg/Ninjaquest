@@ -15,11 +15,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import BattleZone from "./components/BattleZone.vue";
+import BattleZone from "./pages/BattleZone.vue";
 import AllQuestionsData from "./allquestions.json";
 import GameHeader from "./components/GameHeader.vue";
 import paintingBackGround from "./components/PaintedBackGround.vue";
-import MeditationZone from "./components/MeditaionZone.vue";
+import MeditationZone from "./pages/MeditaionZone.vue";
 
 export default defineComponent({
   name: "App",

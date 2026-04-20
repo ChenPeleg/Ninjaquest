@@ -34,9 +34,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import AnswersCircle from "./AnswersCircle.vue";
-import Question from "./Question.vue";
-import MediNinja from "./MediNinja.vue";
+import AnswersCircle from "../components/AnswersCircle.vue";
+import Question from "../components/Question.vue";
+import MediNinja from "../components/MediNinja.vue";
 
 interface Answer {
   id: number;
