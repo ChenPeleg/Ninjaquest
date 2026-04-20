@@ -117,9 +117,9 @@ describe('AnswersCircle', () => {
     // First image should have correctAnimationCorrect class
     expect(images[0].classes()).toContain('correctAnimationCorrect')
     
-    // Other images should have correctAnimationRemainig class
-    expect(images[1].classes()).toContain('correctAnimationRemainig')
-    expect(images[2].classes()).toContain('correctAnimationRemainig')
+    // Other images should have correctAnimationRemaining class
+    expect(images[1].classes()).toContain('correctAnimationRemaining')
+    expect(images[2].classes()).toContain('correctAnimationRemaining')
   })
 
   it('sets sizeOfwheel to 250 on mobile devices', async () => {

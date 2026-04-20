@@ -14,7 +14,7 @@
         <img
             :src="ans.image"
             :data-ansnum="ans.id"
-            :class="{correctAnimationRemainig : correctAnimation && +correctAnimation !== +ans.id, correctAnimationCorrect : correctAnimation && +correctAnimation === +ans.id}"
+            :class="{correctAnimationRemaining : correctAnimation && +correctAnimation !== +ans.id, correctAnimationCorrect : correctAnimation && +correctAnimation === +ans.id}"
         />
       </li>
     </ul>
@@ -189,7 +189,7 @@ export default defineComponent({
   -1px 0px 1px 1px rgba(229, 255, 0, 0.404);
 }
 
-.correctAnimationRemainig {
+.correctAnimationRemaining {
   animation: fading 1s forwards;
 }
 
